@@ -1,0 +1,35 @@
+body {
+  font-size: 16px;
+}
+
+.main-content {
+  width: 100%;
+  display: flex;
+
+  .left-menu, .right-content {
+    height: calc(100vh - 72px);
+    overflow-y: auto;
+  }
+
+  .left-menu {
+    width: 250px;
+    background-color: #424b4f;
+    color: #ffffff;
+  }
+  
+  .right-content {
+    flex: 1;
+    background-color: #f7f7f7;
+    border-radius: 5px;
+  }
+
+}
+
+/* 全局通用的 router-view 过渡效果 */
+.fade-transition {
+  transition: opacity .1s ease;
+}
+
+.fade-enter, .fade-leave {
+  opacity: 0;
+}

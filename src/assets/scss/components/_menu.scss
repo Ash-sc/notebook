@@ -1,0 +1,52 @@
+.left-menu {
+
+  .recent-notes-title {
+    margin: 10px;
+  }
+
+  .recent-notes, .menu-list {
+    padding: 0;
+    list-style: none;
+  }
+
+  .recent-notes {
+
+    .note-link {
+      height: 25px;
+      line-height: 25px;
+      padding-left: 20px;
+      font-size: 12px;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      word-break: break-all;
+      white-space: nowrap;
+      cursor: pointer;
+    }
+
+  }
+
+  .menu-list {
+    padding-top: 10px;
+    border-top: 2px solid #50595d;
+
+    .menu-link {
+      height: 35px;
+      line-height: 35px;
+      padding-left: 20px;
+      cursor: pointer;
+      transition: background-color .1s ease;
+
+      .vlink {
+        color: #ffffff;
+        text-decoration: none;
+      }
+
+    }
+
+    .menu-link.active-router, .menu-link:hover {
+      background-color: #1e91e1;
+    }
+
+  }
+
+}
