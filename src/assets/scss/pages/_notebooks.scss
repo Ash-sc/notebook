@@ -1,0 +1,28 @@
+.notebook-content {
+
+  .funcion-bar {
+    height: 45px;
+    line-height: 45px;
+    border-bottom: 1px solid #d2d2d2;
+    padding: 0 10px;
+
+    .add-new-notebook {
+      position: relative;
+      height: 20px;
+      line-height: 18px;
+      padding: 0 10px 0 25px;
+      background-color: #f7f7f7;
+      border: 1px solid #d2d2d2;
+    }
+
+    .add-new-notebook:before {
+      content: "+";
+      position: absolute;
+      left: 10px;
+      font-size: 20px;
+      line-height: 14px;
+    }
+
+  }
+
+}

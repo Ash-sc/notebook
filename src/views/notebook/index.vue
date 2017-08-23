@@ -1,7 +1,17 @@
 <template>
   <!-- 本页为 /note 页面 -->
-  <div>
-    <!-- 嵌套路由 -->
-    <p>hello, this is notebook page</p>
+  <div class="notebook-content">
+    <function-bar></function-bar>
   </div>
 </template>
+
+<script>
+import FunctionBar from '@/views/notebook/functionBar'
+
+export default {
+
+  components: { FunctionBar },
+  data: () => ({})
+
+}
+</script>
