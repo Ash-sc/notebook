@@ -1,10 +1,22 @@
 .notebook-content {
 
   .funcion-bar {
+    position: relative;
     height: 45px;
     line-height: 45px;
     border-bottom: 1px solid #d2d2d2;
     padding: 0 10px;
+
+    .order-types {
+      position: absolute;
+      margin-left: calc(50% - 68px);
+      left: 0;
+    }
+
+    .layout-types {
+      position: absolute;
+      right: 10px;
+    }
 
     .add-new-notebook {
       position: relative;
