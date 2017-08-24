@@ -14,7 +14,7 @@
 </template>
 <script>
 /* 根组件就像是 AngularJS 的 $rootScope，同时也负责全局布局 */
-import Navbar from '@/components/Navbar'
+import Navbar from '@/components/Navbar/'
 import Sidebar from '@/components/Sidebar/'
 import Breadcrumb from '@/components/Breadcrumb'
 

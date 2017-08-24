@@ -32,19 +32,30 @@
     .menu-link {
       height: 35px;
       line-height: 35px;
-      padding-left: 20px;
       cursor: pointer;
       transition: background-color .1s ease;
 
       .vlink {
         color: #ffffff;
         text-decoration: none;
+        text-indent: 20px;
+        display: block;
+        padding-left: 35px;
+
+        &.notes-link::before {
+          content: "\f249";
+          font-family: 'FontAwesome';
+          position: absolute;
+          left: 0;
+          font-size: 30px;
+        }
+
       }
 
-    }
+      .vlink.active {
+        background-color: #1e91e1;
+      }
 
-    .menu-link.active-router, .menu-link:hover {
-      background-color: #1e91e1;
     }
 
   }

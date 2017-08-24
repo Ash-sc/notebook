@@ -8,6 +8,7 @@
         name="{{ 'radio-group' + random }}"
         v-model="selectedValue"
         class="hide"
+        @click="typeChange(item.value)"
       />
       <label
         for="{{ item.label + '-' + item.value }}"
@@ -15,7 +16,8 @@
         :class="{
           'radio-label-last': $index === list.length - 1,
           'radio-label-first': $index === 0,
-          'radio-label-active': selectedValue === item.value
+          'radio-label-active': selectedValue === item.value,
+          [item.classList]: item.classList
         }"
       >
         {{ item.label }}
@@ -39,11 +41,12 @@ export default {
     random: Math.floor(Math.random * 1000)
   }),
 
-  computed: {
-
+  methods: {
+    typeChange: function(val) {
+      val !== this.selectedValue && this.$emit('change-value', val)
+    }
   },
   attached () {
-    console.log(this.list, this.selectedValue)
     if (this.selectedValue === '' && this.list.length) this.selectedValue = this.list[0].value
   }
 

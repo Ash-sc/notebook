@@ -1,8 +1,17 @@
 <template>
   <div class="funcion-bar">
     <button class="btn add-new-notebook">New Notebook</button>
-    <radio-group :list="orderTypes" class="order-types" :selected-value="orderType"></radio-group>
-    <radio-group :list="layoutTypes" class="layout-types" :selected-value="layoutType"></radio-group>
+    <radio-group
+      :list="orderTypes"
+      class="order-types"
+      :selected-value="orderType"
+      v-on:change-value="orderTypeChange"
+    ></radio-group>
+    <radio-group
+      :list="layoutTypes"
+      class="layout-types"
+      :selected-value="layoutType"
+    ></radio-group>
   </div>
 </template>
 <script>
@@ -20,10 +29,16 @@ export default {
     ],
     orderType: 'name',
     layoutTypes: [
-      { label: 'icon', value: 'icon' },
-      { label: 'list', value: 'list' }
+      { label: '', value: 'icon', classList: 'fa fa-th-large' },
+      { label: '', value: 'list', classList: 'fa fa-bars' }
     ],
     layoutType: 'list'
-  })
+  }),
+  methods: {
+    orderTypeChange: function(val) {
+      this.orderType = val
+      console.log(1111)
+    }
+  }
 }
 </script>
