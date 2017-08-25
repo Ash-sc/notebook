@@ -33,6 +33,7 @@ export default {
   props: {
     list: { type: Array, required: true },
     selectedValue: {
+      type: String,
       default: ''
     }
   },

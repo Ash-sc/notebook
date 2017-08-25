@@ -15,13 +15,13 @@
       </li>
       <li class="menu-link">
         <a
-          class="vlink"
+          class="vlink notebooks-link"
           v-link="{ path: '/notebooks', activeClass: 'active' }"
         >Notebooks</a>
         </li>
       <li class="menu-link">
         <a
-          class="vlink"
+          class="vlink tags-link"
           v-link="{ path:'/tags', activeClass: 'active' }"
         >Tags</a>
       </li>

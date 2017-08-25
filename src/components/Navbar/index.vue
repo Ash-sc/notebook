@@ -8,24 +8,16 @@
       <span class="account-name">Ash</span>
       <span class="fa fa-refresh"></span>
       <span class="fa fa-bell-o"></span>
+      <div class="right-section txt-ellipsis">
+        <button class="btn add-new-note">New Note in AAA</button>
+        <input type="text" class="btn search-btn" placeholder="Search notes" />
+      </div>
     </div>
   </nav>
 </template>
 <script>
-import routesMap from '@/routes/map/'
-import _pickBy from 'lodash/pickBy'
 
 export default {
-  computed: {
-    routes: () => _pickBy(routesMap, route => route.showInNavbar)
-  },
-  filters: {
-    defaultIcon: icon => icon ? icon : 'fa fa-link'
-  },
-  attached () {
-    $(this.$el).find('[data-toggle=tooltip]').tooltip({
-      placement: 'bottom'
-    })
-  }
+
 }
 </script>

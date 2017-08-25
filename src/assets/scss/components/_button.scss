@@ -1,5 +1,13 @@
+/* 按钮样式 */
 .btn {
   outline: none;
+  position: relative;
+  height: 20px;
+  line-height: 18px;
+  background-color: #f7f7f7;
+  border: 1px solid #d2d2d2;
+  font-size: 12px;
+  font-family: $body-font;
 }
 .btn:focus, .btn:active:focus {
   outline: none;

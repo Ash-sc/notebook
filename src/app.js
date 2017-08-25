@@ -1,6 +1,5 @@
 /* 启动文件 */
 import 'es6-shim'
-import '@/assets/css/common.css'
 import Vue from 'vue'
 import '@/filters/'
 import router from '@/routes/'

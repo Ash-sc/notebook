@@ -1,3 +1,4 @@
+/* 左侧导航菜单样式 */
 .left-menu {
 
   .recent-notes-title {
@@ -9,6 +10,7 @@
     list-style: none;
   }
 
+  /* 最近笔记 */
   .recent-notes {
 
     .note-link {
@@ -25,13 +27,14 @@
 
   }
 
+  /* note、notebook、tags 页面模块链接 */
   .menu-list {
     padding-top: 10px;
     border-top: 2px solid #50595d;
 
     .menu-link {
-      height: 35px;
-      line-height: 35px;
+      height: 40px;
+      line-height: 40px;
       cursor: pointer;
       transition: background-color .1s ease;
 
@@ -41,13 +44,25 @@
         text-indent: 20px;
         display: block;
         padding-left: 35px;
+        font-size: 14px;
 
-        &.notes-link::before {
-          content: "\f249";
+        &.notes-link::before, &.notebooks-link::before, &.tags-link::before {
           font-family: 'FontAwesome';
           position: absolute;
           left: 0;
-          font-size: 30px;
+          font-size: 26px;
+        }
+
+        &.notes-link::before {
+          content: "\f249";
+        }
+
+        &.notebooks-link::before {
+          content: "\f02d";
+        }
+
+        &.tags-link::before {
+          content: "\f02c";
         }
 
       }

@@ -11,6 +11,7 @@
       :list="layoutTypes"
       class="layout-types"
       :selected-value="layoutType"
+      v-on:change-value="listTypeChange"
     ></radio-group>
   </div>
 </template>
@@ -36,8 +37,10 @@ export default {
   }),
   methods: {
     orderTypeChange: function(val) {
-      this.orderType = val
-      console.log(1111)
+      this.$emit('order-type-change', val)
+    },
+    listTypeChange: function(val) {
+      this.$emit('list-type-change', val)
     }
   }
 }

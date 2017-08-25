@@ -1,7 +1,10 @@
+/* 公共样式  */
+$body-font: "Arial", "Microsoft YaHei", "montserrat-light-webfont", "STHeiti", "\534E\6587\9ED1\4F53", "SimHei", "\9ED1\4F53", "microsoft yahei", "\5FAE\8F6F\96C5\9ED1", sans-serif;
+
 body {
   font-size: 16px;
   color: #666;
-  font-family: "Arial", "Microsoft YaHei", "montserrat-light-webfont", "STHeiti", "\534E\6587\9ED1\4F53", "SimHei", "\9ED1\4F53", "microsoft yahei", "\5FAE\8F6F\96C5\9ED1", sans-serif;
+  font-family: $body-font;
   
   * {
     outline: none!important;
@@ -19,8 +22,8 @@ body {
   }
 
   .left-menu {
-    width: 250px;
-    background-color: #424b4f;
+    width: 220px;
+    background-color: #38444a;
     color: #ffffff;
   }
   
@@ -40,3 +43,30 @@ body {
 .fade-enter, .fade-leave {
   opacity: 0;
 }
+
+
+/* 单行省略 */
+.txt-ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  word-break: break-all;
+}
+
+/* 灰色边框 */
+$gray-border: 1px solid #e3e3e3;
+
+
+/* 文字对齐 */
+.tl-l {
+  text-align: left!important;
+}
+
+.tl-r {
+  text-align: right!important;
+}
+
+.tl-c {
+  text-align: center!important;
+}
+

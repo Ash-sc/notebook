@@ -1,9 +1,11 @@
+/* 顶部导航栏样式 */
 nav.navbar {
   margin: 0;
   height: 70px;
   border-radius: 0;
   background: #efefef;
 
+  /* 当前页面标题 */
   .page-title {
     margin: 0;
     font-size: 12px;
@@ -13,9 +15,11 @@ nav.navbar {
     font-weight: normal;
   }
 
+  /* 页面功能区 */
   .top-function-bar {
     height: 48px;
     padding: 14px 10px;
+    display: flex;
 
     span {
       font-size: 12px;
@@ -44,6 +48,44 @@ nav.navbar {
     .account-name {
       font-size: 12px;
     }
+
+    .right-section {
+      flex: 1;
+      text-align: right;
+
+      .add-new-note {
+        padding: 0 10px 0 25px;
+        max-width: 160px;
+      }
+  
+      .add-new-note:before {
+        content: "+";
+        position: absolute;
+        left: 10px;
+        font-size: 20px;
+        line-height: 18px;
+      }
+
+      .search-btn {
+        font-family: $body-font;
+        text-align: center;
+        cursor: inherit;
+        width: 300px;
+      }
+
+      .add-new-note, .search-btn {
+        vertical-align: top;
+      }
+
+    }
+
+    /* 适应分辨率 */
+    @media screen and (max-width: 750px) {
+      .right-section {
+        display: none;
+      }
+    }
+    
 
   }
 
