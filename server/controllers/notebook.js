@@ -1,13 +1,42 @@
+// mongoDB
+const notebooksModel = require('../mongo/').notebooksModel
+const moment = require('moment')
+moment.locale('zh-cn')
+
 // GET /notebook/list
 exports.fetchList = function (req, res) {
-  const data = [
-    { name: '默认', id: '1', num: 1, lastUpdateTime: '1503634764388' },
-    { name: '服务器', id: '2', num: 0, lastUpdateTime: '1503644764288' },
-    { name: '前端', id: '3', num: 1, lastUpdateTime: '1503644724388' },
-    { name: '后端', id: '4', num: 2, lastUpdateTime: '1503644764388' }
-  ]
-  res.status(200).json({
-    success: true,
-    data
+  notebooksModel.find({}, (err, result) => {
+    res.status(200)
+    if (err) {
+      res.json({
+        success: false,
+        errorMsg: err
+      })
+    } else {
+      const data = result.map(item => {
+        return {
+          name: item.name,
+          id: item.id,
+          num: item.notesNum,
+          lastUpdateTime: moment(item.updateTime).format('YYYY-MM-DD HH:mm:ss')
+        }
+      })
+      res.json({
+        success: true,
+        data
+      })
+    }
+  })
+}
+
+exports.newNotebook = function (req, res) {
+  notebooksModel.create({
+    id: 2,
+    userId: 1,
+    name: '笔记本B',
+    notesNum: 2,
+    updateTime: moment().format('x')
+  }, (err) => {
+    console.log(err)
   })
 }

@@ -10,14 +10,18 @@
         <span class="notebook-name txt-ellipsis">{{ notebookInfo.name }}</span><span class="note-num tl-c">{{ notebookInfo.num }}</span>
       </div>
     </div>
+    <new-notebook :show="newNotebook"></new-notebook>
   </div>
 </template>
 <script>
 
 import findIndex from 'lodash/findIndex'
 import notebookService from '@/services/notebookService'
+import NewNotebook from './newNotebook'
 
 export default {
+
+  components: { NewNotebook },
 
   props: {
     orderType: {
@@ -48,19 +52,25 @@ export default {
           break
       }
       return findIndex(arr, { id })
+    },
+    // 获取笔记本列表
+    fetchList: function() {
+      notebookService
+        .fetchList()
+        .then((data) => {
+          this.notebooksList = data
+        })
     }
   },
 
   data: () => ({
-    notebooksList: []
+    notebooksList: [],
+    newNotebook: false
   }),
 
   created: function() {
-    notebookService
-      .fetchList()
-      .then((data) => {
-        this.notebooksList = data
-      })
+    // 笔记本列表
+    this.fetchList()
   },
 
   computed: {

@@ -17,7 +17,6 @@ const xhr = ({ method = 'get', url, body = null }) => {
       $.toast({ heading: '操作失败', text: errMsg, icon: 'warning' })
       return defer.reject(res)
     }
-    console.log(res)
     defer.resolve(data)
   })
   .fail(err => {
