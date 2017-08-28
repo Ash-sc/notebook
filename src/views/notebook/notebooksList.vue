@@ -15,6 +15,7 @@
 <script>
 
 import findIndex from 'lodash/findIndex'
+import notebookService from '@/services/notebookService'
 
 export default {
 
@@ -30,6 +31,7 @@ export default {
   },
 
   methods: {
+    // index用于计算偏移量，为排序动画做准备
     getIndex: function(id) {
       const arr = JSON.parse(JSON.stringify(this.notebooksList))
       switch (this.orderType) {
@@ -50,15 +52,19 @@ export default {
   },
 
   data: () => ({
-    notebooksList: [
-      { name: '默认', id: '1', num: 1, lastUpdateTime: '1503634764388' },
-      { name: '服务器', id: '2', num: 0, lastUpdateTime: '1503644764288' },
-      { name: '前端', id: '3', num: 1, lastUpdateTime: '1503644724388' },
-      { name: '后端', id: '4', num: 2, lastUpdateTime: '1503644764388' }
-    ]
+    notebooksList: []
   }),
 
+  created: function() {
+    notebookService
+      .fetchList()
+      .then((data) => {
+        this.notebooksList = data
+      })
+  },
+
   computed: {
+    // 排列方式
     listBy: function() {
       return `list-by-${this.listType} notebook-bg`
     }

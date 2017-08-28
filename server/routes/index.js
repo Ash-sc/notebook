@@ -1,26 +1,12 @@
 var msgCtrls = require('../controllers/msg'),
   authCtrls = require('../controllers/auth'),
+  notebookCtrls = require('../controllers/notebook'),
   interceptor = require('../middlewares/interceptor');
 
-/*
-  GET     /msg              获取留言信息列表
-  POST    /msg              新增一条留言信息
-    
-  GET     /msg/authors      获取所有留言用户名
-
-  GET     /msg/:msgId       获取指定 ID 的留言信息
-  PUT     /msg/:msgId       更新指定 ID 的留言信息
-  DELETE  /msg/:msgId       删除指定 ID 的留言信息
-
-  GET     /auth/checkLogin  检测用户是否已经登录
-  POST    /auth/login       登录
-  DELETE  /auth/logout      注销登录
- */
-
 module.exports = [{
-  path: '/msg',
+  path: '/notebook/fetchList',
   method: 'GET',
-  handler: msgCtrls.getList
+  handler: notebookCtrls.fetchList
 }, {
   path: '/msg',
   method: 'POST',

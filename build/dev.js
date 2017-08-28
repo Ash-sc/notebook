@@ -12,7 +12,7 @@ var compiler = webpack(config);
 app.use('/static', express.static(PATHS.STATIC));
 
 // node server
-require(PATHS.SERVER.join('node-app')).listen(PORTS.NODE_SERVER);
+// require(PATHS.SERVER.join('node-app')).listen(PORTS.NODE_SERVER);
 
 app.use('/api', proxy({
   target: 'http://127.0.0.1:' + PORTS.NODE_SERVER,

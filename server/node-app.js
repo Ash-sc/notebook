@@ -23,4 +23,6 @@ routes.forEach(function (route) {
 
 app.use(notFound);
 
+app.listen(8989)
+
 module.exports = app;
