@@ -1,6 +1,7 @@
 // mongoDB
 const notebooksModel = require('../mongo/').notebooksModel
 const moment = require('moment')
+const uuidv1 = require('uuid/v1')
 moment.locale('zh-cn')
 
 // GET /notebook/list
@@ -30,13 +31,19 @@ exports.fetchList = function (req, res) {
 }
 
 exports.newNotebook = function (req, res) {
+
   notebooksModel.create({
-    id: 2,
+    id: uuidv1(),
     userId: 1,
-    name: '笔记本B',
-    notesNum: 2,
+    name: req.body.notebookName,
+    type: req.body.notebookType,
+    notesNum: 0,
     updateTime: moment().format('x')
   }, (err) => {
-    console.log(err)
+    res.status(200).json({
+      success: !err,
+      data: {},
+      errorMsg: err
+    })
   })
 }

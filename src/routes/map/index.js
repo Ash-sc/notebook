@@ -2,6 +2,7 @@
 import msgRoutes from './msg'
 import authRoutes from './auth'
 import notebookRoutes from './notebook'
+import noteRoutes from './note'
 
 export default {
   '*': {
@@ -49,5 +50,6 @@ export default {
 
   ...msgRoutes,
   ...authRoutes,
-  ...notebookRoutes
+  ...notebookRoutes,
+  ...noteRoutes
 }

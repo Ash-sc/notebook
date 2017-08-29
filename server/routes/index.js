@@ -8,6 +8,10 @@ module.exports = [{
   method: 'GET',
   handler: notebookCtrls.fetchList
 }, {
+  path: '/notebook/newNotebook',
+  method: 'POST',
+  handler: notebookCtrls.newNotebook
+}, {
   path: '/msg',
   method: 'POST',
   middlewares: [interceptor.NEED_AUTH],

@@ -1,12 +1,17 @@
 <template>
   <div class="funcion-bar">
-    <button class="btn add-new-notebook">New Notebook</button>
+    <button
+      class="btn add-new-notebook"
+      @click="addNewNotebook"
+    >New Notebook</button>
+
     <radio-group
       :list="orderTypes"
       class="order-types"
       :selected-value="orderType"
       v-on:change-value="orderTypeChange"
     ></radio-group>
+
     <radio-group
       :list="layoutTypes"
       class="layout-types"
@@ -41,6 +46,9 @@ export default {
     },
     listTypeChange: function(val) {
       this.$emit('list-type-change', val)
+    },
+    addNewNotebook: function() {
+      this.$emit('add-new-notebook', 'true')
     }
   }
 }

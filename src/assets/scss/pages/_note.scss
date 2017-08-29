@@ -1,0 +1,45 @@
+/* 笔记页面 */
+.note-list-page {
+  display: flex;
+  width: 100%;
+  height: 100%;
+
+  /* 左侧笔记总览区域 */
+  .note-preview-section {
+    width: 450px;
+    min-width: 240px;
+    height: 100%;
+    overflow-y: auto;
+    background-color: #f2f2f2;
+    border-right: $gray-border;
+
+    .top-bar {
+      height: 45px;
+      line-height: 45px;
+      border-bottom: $gray-border;
+      padding: 0 15px;
+      position: relative;
+
+      .btn {
+        position: absolute;
+        top: 12px;
+        left: 15px;
+      }
+
+      .current-notebook-name {
+        display: block;
+        text-align: center;
+        padding: 0 80px;
+        height: 45px;
+      }
+    }
+
+  }
+
+  /* 右侧笔记内容区域 */
+  .note-content-section {
+    flex: 1;
+    overflow-y: auto;
+  }
+
+}

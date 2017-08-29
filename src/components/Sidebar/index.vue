@@ -10,7 +10,8 @@
       <li class="menu-link">
         <a
           class="vlink notes-link"
-          v-link="{ path: '/notes', activeClass: 'active' }"
+          :class="{ active: $route.path.indexOf('/note/') === 0}"
+          @click="linkToTag"
         >Notes</a>
       </li>
       <li class="menu-link">
@@ -29,7 +30,11 @@
   </div>
 </template>
 <script>
-
 export default {
+  methods: {
+    linkToTag: function() {
+      this.$router.replace('/note/all')
+    }
+  }
 }
 </script>

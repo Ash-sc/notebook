@@ -5,23 +5,20 @@
       v-for="notebookInfo in notebooksList"
       :key="notebookInfo.id"
       :style="{top: getIndex(notebookInfo.id) * 51 + 10 + 'px' }"
+      @dblclick="goNotePage(notebookInfo.id)"
     >
       <div class="notebook-item">
         <span class="notebook-name txt-ellipsis">{{ notebookInfo.name }}</span><span class="note-num tl-c">{{ notebookInfo.num }}</span>
       </div>
     </div>
-    <new-notebook :show="newNotebook"></new-notebook>
   </div>
 </template>
 <script>
 
 import findIndex from 'lodash/findIndex'
-import notebookService from '@/services/notebookService'
-import NewNotebook from './newNotebook'
 
 export default {
 
-  components: { NewNotebook },
 
   props: {
     orderType: {
@@ -30,6 +27,10 @@ export default {
     },
     listType: {
       type: String,
+      required: true
+    },
+    notebooksList: {
+      type: Array,
       required: true
     }
   },
@@ -53,24 +54,12 @@ export default {
       }
       return findIndex(arr, { id })
     },
-    // 获取笔记本列表
-    fetchList: function() {
-      notebookService
-        .fetchList()
-        .then((data) => {
-          this.notebooksList = data
-        })
+
+    // 路由跳转至具体笔记本，查看笔记
+    goNotePage: function(id) {
+      console.log(id, this.$route)
+      this.$router.replace(`/note/${id}`)
     }
-  },
-
-  data: () => ({
-    notebooksList: [],
-    newNotebook: false
-  }),
-
-  created: function() {
-    // 笔记本列表
-    this.fetchList()
   },
 
   computed: {

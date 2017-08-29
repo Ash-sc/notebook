@@ -12,6 +12,19 @@ class NotebookService {
     })
   }
 
+  /**
+  * 新建笔记本
+  * @param   {String} data.notebookName
+  * @param   {String} data.notebookType
+  */
+  newNotebook (data) {
+    return xhr({
+      url: '/notebook/newNotebook',
+      method: 'post',
+      body: data
+    })
+  }
+
 }
 
 // 实例化后导出，全局单例
