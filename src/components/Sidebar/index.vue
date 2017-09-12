@@ -15,16 +15,22 @@
         >Notes</a>
       </li>
       <li class="menu-link">
-        <a
+        <router-link
           class="vlink notebooks-link"
-          v-link="{ path: '/notebooks', activeClass: 'active' }"
-        >Notebooks</a>
-        </li>
+          :class="{ active: $route.path.indexOf('/notebooks') === 0}"
+          to="/notebooks"
+        >
+          Notebooks
+        </router-link>
+      </li>
       <li class="menu-link">
-        <a
+        <router-link
           class="vlink tags-link"
-          v-link="{ path:'/tags', activeClass: 'active' }"
-        >Tags</a>
+          :class="{ active: $route.path.indexOf('/tags') === 0}"
+          to="/tags"
+        >
+          Tags
+        </router-link>
       </li>
     </ul>
   </div>

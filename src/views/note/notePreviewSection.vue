@@ -1,11 +1,14 @@
 <template>
   <div class="note-preview-section">
     <div class="top-bar">
-      <button
-        class="btn"
-        v-link="{ path: '/note/all' }"
+      <router-link
+        to="/note/all"
         v-if="$route.path !== '/note/all'"
-      >All Notes</button>
+      >
+        <button
+          class="btn"
+        >All Notes</button>
+      </router-link>
       <span class="current-notebook-name txt-ellipsis">
         {{ $route.path !== '/note/all' ? 'Notebook AAA' : 'All Notes' }}
       </span>
