@@ -9,7 +9,6 @@
       <span class="fa fa-refresh"></span>
       <span class="fa fa-bell-o"></span>
       <div class="right-section txt-ellipsis">
-        <button class="btn add-new-note">New Note in AAA</button>
         <input type="text" class="btn search-btn" placeholder="Search notes" />
       </div>
     </div>

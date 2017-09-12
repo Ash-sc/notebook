@@ -3,13 +3,11 @@
   <div class="notebook-content">
     <function-bar
       v-on:order-type-change="orderTypeChange"
-      v-on:list-type-change="listTypeChange"
       v-on:add-new-notebook="addNewNotebook"
     ></function-bar><!-- 顶部工具栏 -->
 
     <notebooks-list
       :order-type="orderType"
-      :list-type="listType"
       :notebooks-list="notebooksList"
     ></notebooks-list><!-- 笔记本列表 -->
 
@@ -33,7 +31,6 @@ export default {
 
   data: () => ({
     orderType: 'name',
-    listType: 'list',
     notebooksList: [],
     newNotebook: false
   }),
@@ -51,11 +48,6 @@ export default {
     // 修改排序方式
     orderTypeChange: function(val) {
       this.orderType = val
-    },
-
-    // 修改排列方式
-    listTypeChange: function(val) {
-      this.listType = val
     },
     
     // 展开、关闭新建笔记本弹框 type=['true', 'cancel', 'create']

@@ -5,6 +5,7 @@ import '@/filters/'
 import router from '@/routes/'
 import App from '@/components/App'
 import authService from '@/services/authService'
+// import store from './store'
 
 // 先检测登录状态再挂载根组件以便控权
 authService.checkLogin().then(userData => {
@@ -14,6 +15,12 @@ authService.checkLogin().then(userData => {
   }
   // 挂载到 DOM，自此外部就可通过 router.app 访问到根组件
   router.start(App, '#app')
+  // new Vue({
+  //   el: '#app',
+  //   // store,
+  //   router,
+  //   render: h => h(App)
+  // })
 })
 
 if (__DEV__) {

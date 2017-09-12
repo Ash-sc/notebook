@@ -1,7 +1,7 @@
 <template>
   <div class="notebooks-list">
     <div
-      :class="listBy"
+      class="notebook-bg"
       v-for="notebookInfo in notebooksList"
       :key="notebookInfo.id"
       :style="{top: getIndex(notebookInfo.id) * 51 + 10 + 'px' }"
@@ -24,10 +24,6 @@ export default {
     orderType: {
       type: String,
       default: ''
-    },
-    listType: {
-      type: String,
-      required: true
     },
     notebooksList: {
       type: Array,

@@ -53,19 +53,6 @@ nav.navbar {
       flex: 1;
       text-align: right;
 
-      .add-new-note {
-        padding: 0 10px 0 25px;
-        max-width: 160px;
-      }
-  
-      .add-new-note:before {
-        content: "+";
-        position: absolute;
-        left: 10px;
-        font-size: 20px;
-        line-height: 18px;
-      }
-
       .search-btn {
         font-family: $body-font;
         text-align: center;
@@ -73,7 +60,7 @@ nav.navbar {
         width: 300px;
       }
 
-      .add-new-note, .search-btn {
+      .search-btn {
         vertical-align: top;
       }
 
