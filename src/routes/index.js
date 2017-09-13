@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import routesMap from './map/' // 路由映射
-import hooks from './hooks/' // 路由钩子
+import routerList from './routerList'
 
 Vue.use(VueRouter)
 
@@ -12,13 +11,13 @@ const router = new VueRouter({
   // saveScrollPosition: true,
   // transitionOnLoad: true,
   // linkActiveClass: '',
-  suppressTransitionError: __PROD__ // 生产环境下不抛出异常
+  suppressTransitionError: __PROD__, // 生产环境下不抛出异常
+  routes: routerList
 })
 
-router.map(routesMap)
-router.alias({ '/msg': '/msg/list' })
+// router.map(Object.values(routesMap))
 
-hooks(router)
+// hooks(router)
 
 /**
  * 调用 router.start(App, '#app') 后，根组件实例就会暴露到 router.app

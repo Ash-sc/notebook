@@ -30,6 +30,7 @@ export default {
   }),
   methods: {
     orderTypeChange: function(val) {
+      console.log(this.$store)
       this.$emit('order-type-change', val)
     },
     addNewNotebook: function() {

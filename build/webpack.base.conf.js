@@ -19,6 +19,7 @@ module.exports = {
     extensions: ['', '.js', '.vue'],
     alias: {
       // 自定义路径别名
+      vue: 'vue/dist/vue.js',
       MOCK: PATHS.MOCK,
       '@': PATHS.SRC
     }

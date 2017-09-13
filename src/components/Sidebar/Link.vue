@@ -1,10 +1,12 @@
 <template>
-  <a class="btn btn-default btn-block m-t-0 vlink"
+  <router-link
+    class="btn btn-default btn-block m-t-0 vlink"
     :class="{ 'matched-route': path === curMatchedPath }"
-    v-link="vlinkContent">
+    to="vlinkContent"
+  >
     <i :class="icon" class="m-r-5"></i>
     {{ title }}
-  </a>
+  </router-link>
 </template>
 <script>
 export default {
