@@ -8,10 +8,17 @@
 <script>
 
 import NotePreviewSection from './notePreviewSection'
+import * as notebooksTypes from '@/store/types/notebooksTypes'
 
 export default {
 
-  components: { NotePreviewSection }
+  components: { NotePreviewSection },
+
+  created: function() {
+    if (!this.$store.state.notebooks.notebooksList.length && this.$route.path !== '/note/all') {
+      this.$store.dispatch(notebooksTypes.GET_NOTEBOOKS_LIST)
+    }
+  }
 
 }
 </script>

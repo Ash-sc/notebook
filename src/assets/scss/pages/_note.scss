@@ -24,6 +24,7 @@
         position: absolute;
         top: 12px;
         left: 15px;
+        color: #666;
       }
 
       .current-notebook-name {
@@ -32,6 +33,11 @@
         padding: 0 80px;
         height: 45px;
       }
+    }
+
+    .note-item-preview {
+      height: calc(100% - 45px);
+      overflow-x: auto;
     }
 
   }
