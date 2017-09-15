@@ -2,12 +2,11 @@
   <!-- 本页为 /notebooks 页面 -->
   <div class="notebook-content">
     <function-bar
-      v-on:order-type-change="orderTypeChange"
       v-on:add-new-notebook="addNewNotebook"
     ></function-bar><!-- 顶部工具栏 -->
 
     <notebooks-list
-      :order-type="orderType"
+      :order-type="$store.state.notebooks.orderType"
       :notebooks-list="notebooksList"
     ></notebooks-list><!-- 笔记本列表 -->
 
@@ -22,45 +21,37 @@
 import FunctionBar from '@/views/notebook/functionBar'
 import NotebooksList from '@/views/notebook/notebooksList'
 import NewNotebook from './newNotebook'
-
-import notebookService from '@/services/notebookService'
+import * as types from '@/store/types/notebooksTypes'
+import { mapGetters } from 'vuex'
 
 export default {
 
   components: { FunctionBar, NotebooksList, NewNotebook },
 
   data: () => ({
-    orderType: 'name',
-    notebooksList: [],
     newNotebook: false
   }),
 
-  methods: {
-    // 获取笔记本列表
-    fetchList: function() {
-      notebookService
-        .fetchList()
-        .then((data) => {
-          this.notebooksList = data
-        })
-    },
+  computed: {
+    ...mapGetters({
+      notebooksList: 'notebooksList'
+    })
+  },
 
-    // 修改排序方式
-    orderTypeChange: function(val) {
-      this.orderType = val
-    },
-    
+  methods: {
     // 展开、关闭新建笔记本弹框 type=['true', 'cancel', 'create']
     addNewNotebook: function(type) {
       this.newNotebook = type === 'true'
       // 若为创建后关闭，则刷新列表
-      type === 'create' && this.fetchList()
+      type === 'create' && this.$store.dispatch(types.GET_NOTEBOOKS_LIST)
     }
   },
 
   created: function() {
     // 笔记本列表
-    this.fetchList()
+    if (!this.$store.state.notebooks.notebooksList.length) {
+      this.$store.dispatch(types.GET_NOTEBOOKS_LIST)
+    }
   }
 
 }

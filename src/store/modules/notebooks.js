@@ -1,15 +1,16 @@
-import * as types from '../mutation-types'
+import * as types from '../types/notebooksTypes'
+import notebookService from '@/services/notebookService'
 
 // initial state
 // shape: [{ id, quantity }]
 const state = {
-  added: [],
-  checkoutStatus: null
+  orderType: 'name',
+  notebooksList: []
 }
 
 // getters
 const getters = {
-  checkoutStatus: state => state.checkoutStatus
+  notebooksList: state => state.notebooksList
 }
 
 // actions
@@ -23,21 +24,28 @@ const actions = {
   //     () => commit(types.CHECKOUT_FAILURE, { savedCartItems })
   //   )
   // }
+  [types.GET_NOTEBOOKS_LIST]({ commit, state }) {
+    // commit(types.GET_NOTEBOOKS_LIST_REQUEST)
+    notebookService
+    .fetchList()
+    .then((data) => {
+      commit(types.GET_NOTEBOOKS_LIST_SUCCESS, { data })
+    }, () => {
+      commit(types.GET_NOTEBOOKS_LIST_FAILURE)
+    })
+  }
 }
 
 // mutations
 const mutations = {
-  [types.ADD_TO_CART] (state, { id }) {
-    state.lastCheckout = null
-    const record = state.added.find(p => p.id === id)
-    if (!record) {
-      state.added.push({
-        id,
-        quantity: 1
-      })
-    } else {
-      record.quantity++
-    }
+  [types.CHANGE_ORDER_TYPE](state, { type }) {
+    state.orderType = type
+  },
+  [types.GET_NOTEBOOKS_LIST_FAILURE](state) {
+    state.notebooksList = []
+  },
+  [types.GET_NOTEBOOKS_LIST_SUCCESS](state, { data }) {
+    state.notebooksList = data
   }
 }
 

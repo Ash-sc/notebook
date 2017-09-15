@@ -15,6 +15,7 @@
 </template>
 <script>
 import RadioGroup from '@/components/RadioGroup'
+import * as types from '@/store/types/notebooksTypes'
 
 export default {
 
@@ -25,13 +26,18 @@ export default {
       { label: 'Name', value: 'name' },
       { label: 'Count', value: 'count' },
       { label: 'Updated', value: 'updated' }
-    ],
-    orderType: 'name'
+    ]
   }),
+
+  computed: {
+     orderType() {
+       return this.$store.state.notebooks.orderType
+     }
+  },
+
   methods: {
     orderTypeChange: function(val) {
-      console.log(this.$store)
-      this.$emit('order-type-change', val)
+      this.$store.commit(types.CHANGE_ORDER_TYPE, { type: val })
     },
     addNewNotebook: function() {
       this.$emit('add-new-notebook', 'true')
