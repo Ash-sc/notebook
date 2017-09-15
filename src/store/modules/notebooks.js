@@ -5,7 +5,7 @@ import notebookService from '@/services/notebookService'
 // shape: [{ id, quantity }]
 const state = {
   orderType: 'name',
-  notebooksList: []
+  notebooksList: JSON.parse(localStorage.notebooksList || '[]')
 }
 
 // getters
@@ -30,6 +30,7 @@ const actions = {
     .fetchList()
     .then((data) => {
       commit(types.GET_NOTEBOOKS_LIST_SUCCESS, { data })
+      localStorage.notebooksList = JSON.stringify(data)
     }, () => {
       commit(types.GET_NOTEBOOKS_LIST_FAILURE)
     })

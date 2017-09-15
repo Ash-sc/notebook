@@ -56,13 +56,6 @@ export default {
       console.log(id, this.$route)
       this.$router.replace(`/note/${id}`)
     }
-  },
-
-  computed: {
-    // 排列方式
-    listBy: function() {
-      return `list-by-${this.listType} notebook-bg`
-    }
   }
   
 }

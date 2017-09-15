@@ -21,7 +21,7 @@
         v-for="(note, $index) in notesList"
         :note-info="note"
         :key="$index"
-        :active="$index === 2"
+        :active="note.id === currentNote.id"
       >
       </note-preview-card>
     </div>
@@ -41,7 +41,8 @@ export default {
       return obj.name ? obj.name : ''
     },
     ...mapGetters({
-      notesList: 'notesList'
+      notesList: 'notesList',
+      currentNote: 'currentNote'
     })
   }
 }
