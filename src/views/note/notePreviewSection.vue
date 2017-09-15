@@ -16,20 +16,33 @@
         }}
       </span>
     </div>
-    <div class="note-item-preview">
-      123
+    <div class="note-card-preview">
+      <note-preview-card
+        v-for="(note, $index) in notesList"
+        :note-info="note"
+        :key="$index"
+        :active="$index === 2"
+      >
+      </note-preview-card>
     </div>
   </div>
 </template>
 <script>
 import find from 'lodash/find'
+import { mapGetters } from 'vuex'
+import NotePreviewCard from './notePreviewCard'
 
 export default {
+  components: { NotePreviewCard },
+
   computed: {
     currentNotebook: function() {
       const obj = find(this.$store.state.notebooks.notebooksList, { id: this.$route.params.notebookId }) || {}
       return obj.name ? obj.name : ''
-    }
+    },
+    ...mapGetters({
+      notesList: 'notesList'
+    })
   }
 }
 </script>

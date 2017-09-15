@@ -1,11 +1,16 @@
 var authCtrls = require('../controllers/auth'),
+  noteCtrls = require('../controllers/note'),
   notebookCtrls = require('../controllers/notebook'),
   interceptor = require('../middlewares/interceptor');
 
 module.exports = [{
-  path: '/notebook/fetchList',
+  path: '/note/notesList',
   method: 'GET',
-  handler: notebookCtrls.fetchList
+  handler: noteCtrls.notesList
+}, {
+  path: '/notebook/notebooksList',
+  method: 'GET',
+  handler: notebookCtrls.notebooksList
 }, {
   path: '/notebook/newNotebook',
   method: 'POST',

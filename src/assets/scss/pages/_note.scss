@@ -35,9 +35,48 @@
       }
     }
 
-    .note-item-preview {
+    .note-card-preview {
       height: calc(100% - 45px);
       overflow-x: auto;
+      padding: 30px 30px 0 30px;
+
+      .note-preview-card {
+        position: relative;
+        height: 45px;
+        border: 1px solid #d9d9d9;
+        margin-bottom: 10px;
+        border-radius: 5px;
+        padding-right: 45px;
+        text-indent: 15px;
+        font-size: 14px;
+        line-height: 43px;
+        user-select: none;
+        cursor: default;
+
+        .fa {
+          position: absolute;
+          right: 0;
+          width: 43px;
+          height: 43px;
+          text-align: center;
+          line-height: 43px;
+          text-indent: 0;
+          cursor: pointer;
+        }
+      }
+
+      .note-preview-card:last-child {
+        margin-bottom: 30px;
+      }
+
+      .note-preview-card.active-note {
+        background: linear-gradient(90deg, #ebe9e9, #e8f8f5, #e1f3ff);
+      }
+
+      .note-preview-card.active-note, .note-preview-card:hover {
+        background: linear-gradient(90deg, #fffdfd, #e4fef9, #d4ecfc);
+        box-shadow: 0px 0px 8px 1px #ccc;
+      }
     }
 
   }

@@ -9,6 +9,7 @@
 
 import NotePreviewSection from './notePreviewSection'
 import * as notebooksTypes from '@/store/types/notebooksTypes'
+import * as noteTypes from '@/store/types/noteTypes'
 
 export default {
 
@@ -18,6 +19,7 @@ export default {
     if (!this.$store.state.notebooks.notebooksList.length && this.$route.path !== '/note/all') {
       this.$store.dispatch(notebooksTypes.GET_NOTEBOOKS_LIST)
     }
+    this.$store.dispatch(noteTypes.GET_NOTE_LIST)
   }
 
 }

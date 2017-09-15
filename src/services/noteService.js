@@ -4,22 +4,22 @@ import xhr from './xhr/'
  */
 class NotebookService {
   /**
-   * 获取笔记本列表
+   * 获取笔记列表
    */
   fetchList () {
     return xhr({
-      url: '/notebook/notebooksList'
+      url: '/note/notesList'
     })
   }
 
   /**
-  * 新建笔记本
-  * @param   {String} data.notebookName
-  * @param   {String} data.notebookType
+  * 新建笔记
+  * @param   {String} data.noteTitle
+  * @param   {String} data.noteContent
   */
   newNotebook (data) {
     return xhr({
-      url: '/notebook/newNotebook',
+      url: '/note/newNote',
       method: 'post',
       body: data
     })
