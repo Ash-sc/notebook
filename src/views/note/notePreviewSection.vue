@@ -18,7 +18,7 @@
     </div>
     <div class="note-card-preview">
       <note-preview-card
-        v-for="(note, $index) in notesList"
+        v-for="(note, $index) in noteListFilter"
         :note-info="note"
         :key="$index"
         :active="note.id === currentNote.id"
@@ -35,6 +35,13 @@ import NotePreviewCard from './notePreviewCard'
 export default {
   components: { NotePreviewCard },
 
+  data: function() {
+    const notebookId = this.$route.params.notebookId
+    return {
+      currentNoteBookId: notebookId === 'all' ? '' : notebookId
+    }
+  },
+
   computed: {
     currentNotebook: function() {
       const obj = find(this.$store.state.notebooks.notebooksList, { id: this.$route.params.notebookId }) || {}
@@ -43,7 +50,12 @@ export default {
     ...mapGetters({
       notesList: 'notesList',
       currentNote: 'currentNote'
-    })
+    }),
+    noteListFilter: function() {
+      return this.currentNoteBookId ? this.notesList.filter((item) => {
+    return item.notebookId === this.currentNoteBookId
+  }) : this.notesList
+    }
   }
 }
 </script>

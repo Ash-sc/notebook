@@ -25,6 +25,17 @@ class NotebookService {
     })
   }
 
+  /**
+  * 保存笔记
+  */
+  saveNote (data) {
+    return xhr({
+      url: '/note/saveNote',
+      method: 'post',
+      body: data
+    })
+  }
+
 }
 
 // 实例化后导出，全局单例

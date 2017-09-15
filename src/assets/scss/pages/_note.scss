@@ -88,6 +88,14 @@
     position: relative;
     overflow-y: auto;
 
+    /* 保存笔记 */
+    .save-note {
+      position: absolute;
+      left: 10px;
+      top: 10px;
+      cursor: pointer;
+    }
+
     /* 笔记标题 */
     .note-title-input {
       position: absolute;

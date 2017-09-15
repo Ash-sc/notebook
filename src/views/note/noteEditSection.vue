@@ -1,5 +1,9 @@
 <template>
   <div class="note-edit-section">
+    <span
+      class="fa fa-floppy-o save-note"
+      @click="saveNote"
+    ></span>
     <input
       type="text"
       class="note-title-input"
@@ -17,6 +21,7 @@
 import VueHtml5Editor from 'vue-html5-editor'
 import Vue from 'vue'
 import isEmpty from 'lodash/isEmpty'
+import * as types from '@/store/types/noteTypes'
 // import { mapGetters } from 'vuex'
 
 Vue.use(VueHtml5Editor, {
@@ -60,8 +65,14 @@ export default {
   },
 
   methods: {
+    // 修改笔记内容
     changeNoteContent: function(content) {
-      console.log(123123, content)
+      this.$store.commit(types.UPDATE_CURRENT_NOTE, { noteInfo: { content } })
+    },
+
+    // 保存笔记
+    saveNote() {
+      this.$store.dispatch(types.SAVE_NOTE, this.currentNote)
     }
   }
 }

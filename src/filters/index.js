@@ -5,3 +5,5 @@
 import Vue from 'vue'
 
 Vue.filter('dateTimeFormatter', require('./dateTimeFormatter').default)
+
+Vue.filter('noteFilter', require('./noteFilter').default)

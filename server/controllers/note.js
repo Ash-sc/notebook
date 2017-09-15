@@ -71,3 +71,16 @@ exports.newNote = function (req, res) {
     })
   })
 }
+
+// post /note/saveNote
+exports.saveNote = function (req, res) {
+  notesModel.update({
+    notebookId: req.body.notebookId
+  }, req.body, (err) => {
+    res.status(200).json({
+      success: !err,
+      data: {},
+      errorMsg: err
+    })
+  })
+}

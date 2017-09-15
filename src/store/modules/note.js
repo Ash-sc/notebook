@@ -19,14 +19,25 @@ const getters = {
 
 // actions
 const actions = {
+  // 获取笔记列表
   [types.GET_NOTE_LIST]({ commit, state }) {
-    // commit(types.GET_NOTEBOOKS_LIST_REQUEST)
     noteService
     .fetchList()
     .then((data) => {
       commit(types.GET_NOTE_LIST_SUCCESS, { data })
     }, () => {
       commit(types.GET_NOTE_LIST_FAILURE)
+    })
+  },
+
+  // 保存笔记
+  [types.SAVE_NOTE]({ commit, state }, noteInfo) {
+    noteService
+    .saveNote(noteInfo)
+    .then((data) => {
+      console.log('save note success!')
+    }, () => {
+      console.log('save note error!')
     })
   }
 }
@@ -36,7 +47,7 @@ const mutations = {
   [types.GET_NOTE_LIST_SUCCESS](state, { data }) {
     state.notesList = data
     if (data.length) {
-      state.currentNote = (() => data[0])()
+      state.currentNote = Object.assign({}, data[0])
     }
   },
   [types.GET_NOTE_LIST_FAILURE](state, { data }) {
@@ -48,6 +59,10 @@ const mutations = {
       noteInfo,
       { updateTime: moment().format('x')}
     )
+  },
+  // 切换当前显示的笔记
+  [types.CHANGE_ACTIVE_NOTE](state, { noteInfo }) {
+    state.currentNote = noteInfo
   }
 }
 

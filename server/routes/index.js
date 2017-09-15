@@ -1,7 +1,7 @@
 var authCtrls = require('../controllers/auth'),
   noteCtrls = require('../controllers/note'),
   notebookCtrls = require('../controllers/notebook'),
-  interceptor = require('../middlewares/interceptor');
+  interceptor = require('../middlewares/interceptor')
 
 module.exports = [{
   path: '/note/notesList',
@@ -11,6 +11,10 @@ module.exports = [{
   path: '/note/newNote',
   method: 'POST',
   handler: noteCtrls.newNote
+}, {
+  path: '/note/saveNote',
+  method: 'POST',
+  handler: noteCtrls.saveNote
 }, {
   path: '/notebook/notebooksList',
   method: 'GET',
