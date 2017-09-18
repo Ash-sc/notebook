@@ -1,10 +1,10 @@
 var xhr = require('./jquery').default
 
-if (__PROD__) {
-  // 为方便纯静态页的演示，使用了支持在浏览器运行的 Mock Server
-  // 通过按照接口格式封装 xhr 函数，以实现基于 Promise 的请求与响应
-  xhr = require('MOCK/browser-xhr')
-}
+// if (__PROD__) {
+//   // 为方便纯静态页的演示，使用了支持在浏览器运行的 Mock Server
+//   // 通过按照接口格式封装 xhr 函数，以实现基于 Promise 的请求与响应
+//   xhr = require('MOCK/browser-xhr')
+// }
 
 /**
  * XHR 请求接口定义
