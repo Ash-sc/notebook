@@ -17,6 +17,12 @@
       </span>
     </div>
     <div class="note-card-preview">
+      <div
+        class="note-preview-card txt-ellipsis add-new-note"
+        @click="addNewNote"
+      >
+        + Add New Note
+      </div>
       <note-preview-card
         v-for="(note, $index) in noteListFilter"
         :note-info="note"
@@ -31,6 +37,7 @@
 import find from 'lodash/find'
 import { mapGetters } from 'vuex'
 import NotePreviewCard from './notePreviewCard'
+import * as types from '@/store/types/noteTypes'
 
 export default {
   components: { NotePreviewCard },
@@ -52,9 +59,22 @@ export default {
       currentNote: 'currentNote'
     }),
     noteListFilter: function() {
-      return this.currentNoteBookId ? this.notesList.filter((item) => {
-    return item.notebookId === this.currentNoteBookId
-  }) : this.notesList
+      
+      const arr = this.currentNoteBookId ? this.notesList.filter((item) => {
+        return item.notebookId === this.currentNoteBookId
+      }) : this.notesList
+      if (!this.$store.state.note.currentNote.id) {
+        this.$store.commit(types.CHANGE_ACTIVE_NOTE, {
+          noteInfo: arr.length ? arr[0] : {}
+        })
+      }
+      return arr
+    }
+  },
+
+  methods: {
+    addNewNote: function() {
+      console.log(1233)
     }
   }
 }

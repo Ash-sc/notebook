@@ -25,7 +25,6 @@ export default {
 
   methods: {
     changeActiveNote: function() {
-      console.log(this.noteInfo)
       this.$store.commit(types.CHANGE_ACTIVE_NOTE, { noteInfo: this.noteInfo })
     }
   }

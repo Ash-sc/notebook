@@ -10,6 +10,7 @@
       placeholder="Untitled"
       maxlength="40"
       v-model="currentNote.title"
+      @change="changeNoteTitle"
     />
     <vue-html5-editor
       :content="currentNote.content"
@@ -22,7 +23,7 @@ import VueHtml5Editor from 'vue-html5-editor'
 import Vue from 'vue'
 import isEmpty from 'lodash/isEmpty'
 import * as types from '@/store/types/noteTypes'
-// import { mapGetters } from 'vuex'
+import moment from 'moment'
 
 Vue.use(VueHtml5Editor, {
   showModuleName: false,
@@ -66,13 +67,20 @@ export default {
 
   methods: {
     // 修改笔记内容
+    changeNoteTitle: function(e) {
+      const title = e.target.value
+      this.$store.commit(types.UPDATE_CURRENT_NOTE, { noteInfo: { title } })
+    },
+
+    // 修改笔记内容
     changeNoteContent: function(content) {
       this.$store.commit(types.UPDATE_CURRENT_NOTE, { noteInfo: { content } })
     },
 
     // 保存笔记
     saveNote() {
-      this.$store.dispatch(types.SAVE_NOTE, this.currentNote)
+      const noteInfo = Object.assign({}, this.currentNote, { updateTime: moment().format('x') })
+      this.$store.dispatch(types.SAVE_NOTE, noteInfo)
     }
   }
 }

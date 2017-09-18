@@ -1,6 +1,7 @@
 import * as types from '../types/noteTypes'
 import noteService from '@/services/noteService'
 import moment from 'moment'
+// import findIndex from 'lodash/findIndex'
 
 // initial state
 // shape: [{ id, quantity }]
@@ -36,6 +37,13 @@ const actions = {
     .saveNote(noteInfo)
     .then((data) => {
       console.log('save note success!')
+      // const index = findIndex(state.notesList, { id: noteInfo.id })
+      // state.notesList[index] = noteInfo
+      // state.noteUpdateInfo[index] = {
+      //   id: noteInfo.id,
+      //   updateTime: noteInfo.updateTime
+      // }
+      this.dispatch(types.GET_NOTE_LIST)
     }, () => {
       console.log('save note error!')
     })
@@ -46,6 +54,7 @@ const actions = {
 const mutations = {
   [types.GET_NOTE_LIST_SUCCESS](state, { data }) {
     state.notesList = data
+    localStorage.notesList = JSON.stringify(data)
     if (data.length) {
       state.currentNote = Object.assign({}, data[0])
     }

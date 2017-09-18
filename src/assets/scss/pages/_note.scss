@@ -69,13 +69,21 @@
         margin-bottom: 30px;
       }
 
-      .note-preview-card.active-note {
-        background: linear-gradient(90deg, #ebe9e9, #e8f8f5, #e1f3ff);
+      .note-preview-card.active-note, .note-preview-card:not(.add-new-note):hover {
+        background: linear-gradient(90deg, #fffdfd, #e4fef9, #d4ecfc);
+        background: #fffdfd;
+        box-shadow: 0px 0px 8px 1px #ccc;
       }
 
-      .note-preview-card.active-note, .note-preview-card:hover {
+      .note-preview-card.active-note {
         background: linear-gradient(90deg, #fffdfd, #e4fef9, #d4ecfc);
-        box-shadow: 0px 0px 8px 1px #ccc;
+      }
+
+      .note-preview-card.add-new-note {
+        text-align: center;
+        cursor: pointer;
+        background: #fffdfd;
+        // box-shadow: 0px 0px 2px 1px #ccc;
       }
     }
 
