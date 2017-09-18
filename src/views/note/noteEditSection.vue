@@ -1,5 +1,8 @@
 <template>
-  <div class="note-edit-section">
+  <div
+    class="note-edit-section"
+    :style="{ 'display': currentNote.id ? 'block' : 'none'}"
+  >
     <span
       class="fa fa-floppy-o save-note"
       @click="saveNote"

@@ -75,11 +75,12 @@ export default {
           return item.notebookId === currentNoteBookId
         }) : this.notesList
 
-      if (!this.$store.state.note.currentNote.id) {
+      if (!this.$store.state.note.currentNote.id && arr.length) {
         this.$store.commit(types.CHANGE_ACTIVE_NOTE, {
-          noteInfo: arr.length ? arr[0] : {}
+          noteInfo: arr[0]
         })
       }
+      console.log(111)
       return arr
     }
   }
