@@ -45,13 +45,6 @@ export default {
       // 若为创建后关闭，则刷新列表
       type === 'create' && this.$store.dispatch(types.GET_NOTEBOOKS_LIST)
     }
-  },
-
-  created: function() {
-    // 笔记本列表
-    if (!this.$store.state.notebooks.notebooksList.length) {
-      this.$store.dispatch(types.GET_NOTEBOOKS_LIST)
-    }
   }
 
 }

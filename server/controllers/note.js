@@ -37,7 +37,7 @@ exports.notesList = function (req, res) {
 exports.newNote = function (req, res) {
   notesModel.create({
     id: uuidv1(),
-    notebookId: '1503986361290339f90c0-8c7f-11e7-90af-8f74e5d55156',
+    notebookId: req.body.notebookId,
     userId: 1,
     title: req.body.title || '未命名',
     content: req.body.content || '',

@@ -24,7 +24,7 @@
         + Add New Note
       </div>
       <note-preview-card
-        v-for="(note, $index) in noteListFilter"
+        v-for="(note, $index) in noteListFilter()"
         :note-info="note"
         :key="$index"
         :active="note.id === currentNote.id"
@@ -42,13 +42,6 @@ import * as types from '@/store/types/noteTypes'
 export default {
   components: { NotePreviewCard },
 
-  data: function() {
-    const notebookId = this.$route.params.notebookId
-    return {
-      currentNoteBookId: notebookId === 'all' ? '' : notebookId
-    }
-  },
-
   computed: {
     currentNotebook: function() {
       const obj = find(this.$store.state.notebooks.notebooksList, { id: this.$route.params.notebookId }) || {}
@@ -57,24 +50,29 @@ export default {
     ...mapGetters({
       notesList: 'notesList',
       currentNote: 'currentNote'
-    }),
+    })
+  },
+
+  methods: {
+    addNewNote: function() {
+      console.log(1233)
+    },
+
     noteListFilter: function() {
+      const notebookId = this.$route.params.notebookId
+      const currentNoteBookId = notebookId === 'all' ? '' : notebookId
       
-      const arr = this.currentNoteBookId ? this.notesList.filter((item) => {
-        return item.notebookId === this.currentNoteBookId
-      }) : this.notesList
+      const arr = currentNoteBookId
+        ? this.notesList.filter((item) => {
+          return item.notebookId === currentNoteBookId
+        }) : this.notesList
+
       if (!this.$store.state.note.currentNote.id) {
         this.$store.commit(types.CHANGE_ACTIVE_NOTE, {
           noteInfo: arr.length ? arr[0] : {}
         })
       }
       return arr
-    }
-  },
-
-  methods: {
-    addNewNote: function() {
-      console.log(1233)
     }
   }
 }

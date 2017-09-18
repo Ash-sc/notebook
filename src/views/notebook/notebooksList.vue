@@ -8,7 +8,7 @@
       @dblclick="goNotePage(notebookInfo.id)"
     >
       <div class="notebook-item">
-        <span class="notebook-name txt-ellipsis">{{ notebookInfo.name }}</span><span class="note-num tl-c">{{ notebookInfo.num }}</span>
+        <span class="notebook-name txt-ellipsis">{{ notebookInfo.name }}</span><span class="note-num tl-c">{{ getNoteNum(notebookInfo.id) }}</span>
       </div>
     </div>
   </div>
@@ -67,6 +67,11 @@ export default {
       const noteInfo = noteList.length ? noteList[0] : {}
       this.$store.commit(types.CHANGE_ACTIVE_NOTE, { noteInfo })
       this.$router.replace(`/note/${id}`)
+    },
+
+    // 获取笔记数量
+    getNoteNum(notebookId) {
+      return this.notesList.filter(note => note.notebookId === notebookId).length
     }
   }
   
