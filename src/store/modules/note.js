@@ -47,6 +47,19 @@ const actions = {
     }, () => {
       console.log('save note error!')
     })
+  },
+
+  // 新建笔记
+  [types.CREATE_NEW_NOTE]({ commit, state }, noteInfo) {
+    noteService
+    .newNote(noteInfo)
+    .then((data) => {
+      console.log('new note success!')
+      commit(types.UPDATE_CURRENT_NOTE, { noteInfo: data })
+      this.dispatch(types.GET_NOTE_LIST)
+    }, () => {
+      console.log('new note error!')
+    })
   }
 }
 

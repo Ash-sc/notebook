@@ -36,6 +36,17 @@ class NotebookService {
     })
   }
 
+  /**
+  * 新建笔记
+  */
+  newNote (data) {
+    return xhr({
+      url: '/note/newNote',
+      method: 'post',
+      body: data
+    })
+  }
+
 }
 
 // 实例化后导出，全局单例

@@ -49,15 +49,23 @@ export default {
     },
     ...mapGetters({
       notesList: 'notesList',
-      currentNote: 'currentNote'
+      currentNote: 'currentNote',
+      notebooksList: 'notebooksList'
     })
   },
 
   methods: {
+    // 新建笔记
     addNewNote: function() {
-      console.log(1233)
+      const notebookId = this.$route.params.notebookId.replace(/^all$/, '')
+      const noteInfo = {
+        notebookId: notebookId
+          ? notebookId : this.notebooksList[0].id
+      }
+      this.$store.dispatch(types.CREATE_NEW_NOTE, noteInfo)
     },
 
+    // 笔记本过滤
     noteListFilter: function() {
       const notebookId = this.$route.params.notebookId
       const currentNoteBookId = notebookId === 'all' ? '' : notebookId

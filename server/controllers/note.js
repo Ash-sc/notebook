@@ -39,13 +39,21 @@ exports.newNote = function (req, res) {
     id: uuidv1(),
     notebookId: req.body.notebookId,
     userId: 1,
-    title: req.body.title || '未命名',
-    content: req.body.content || '',
+    title: '',
+    content: '',
     updateTime: moment().format('x')
-  }, (err) => {
+  }, (err, info) => {
+    const { id, notebookId, userId, title, content, updateTime } = info._doc
     res.status(200).json({
       success: !err,
-      data: {},
+      data: {
+        id,
+        notebookId,
+        userId,
+        title,
+        content,
+        updateTime: moment(updateTime).format('YYYY-MM-DD HH:mm:ss')
+      },
       errorMsg: err
     })
   })
