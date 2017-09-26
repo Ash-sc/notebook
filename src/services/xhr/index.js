@@ -1,4 +1,5 @@
-var xhr = require('./jquery').default
+// var xhr = require('./jquery').default
+var xhr = require('./axios').default
 
 // if (__PROD__) {
 //   // 为方便纯静态页的演示，使用了支持在浏览器运行的 Mock Server

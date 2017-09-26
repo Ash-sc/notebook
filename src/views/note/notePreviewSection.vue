@@ -80,7 +80,6 @@ export default {
           noteInfo: arr[0]
         })
       }
-      console.log(111)
       return arr
     }
   }
