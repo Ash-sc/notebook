@@ -4,7 +4,7 @@ import * as types from '../types/loadingTypes'
 // initial state
 // shape: [{ id, quantity }]
 const state = {
-  loading: {} // loading信息
+  loading: [] // loading信息
 }
 
 // getters
@@ -18,11 +18,12 @@ const actions = {
 
 // mutations
 const mutations = {
-  [types.LOADING_CHANGE](state, { data }) {
-    if (data.status) {
-      state.push(data.path)
+  [types.LOADING_CHANGE](state, { path, loading }) {
+    const loadingArr = state.loading
+    if (loading) {
+      loadingArr.push(path)
     } else {
-      state.splice(state[state.indexOf(data.path)], 1, 0)
+      loadingArr.splice(loadingArr[loadingArr.indexOf(path)], 1)
     }
   }
 }
