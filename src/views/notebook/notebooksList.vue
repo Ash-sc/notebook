@@ -8,7 +8,7 @@
       @dblclick="goNotePage(notebookInfo.id)"
     >
       <div class="notebook-item">
-        <span class="notebook-name txt-ellipsis">{{ notebookInfo.name }}</span><span class="note-num tl-c">{{ notebookInfo.num }}</span>
+        <span class="notebook-name txt-ellipsis">{{ notebookInfo.name }}</span><span class="note-num tl-c">{{ getNoteNum(notebookInfo.id) }}</span>
       </div>
     </div>
   </div>
@@ -16,6 +16,8 @@
 <script>
 
 import findIndex from 'lodash/findIndex'
+import { mapGetters } from 'vuex'
+import * as types from '@/store/types/noteTypes'
 
 export default {
 
@@ -29,6 +31,12 @@ export default {
       type: Array,
       required: true
     }
+  },
+
+  computed: {
+    ...mapGetters({
+      notesList: 'notesList'
+    })
   },
 
   methods: {
@@ -53,15 +61,17 @@ export default {
 
     // 路由跳转至具体笔记本，查看笔记
     goNotePage: function(id) {
-      console.log(id, this.$route)
+      const noteList = this.notesList
+        .filter(note => note.notebookId === id)
+        .sort((a, b) => a.updateTime < b.updateTime)
+      const noteInfo = noteList.length ? noteList[0] : {}
+      this.$store.commit(types.CHANGE_ACTIVE_NOTE, { noteInfo })
       this.$router.replace(`/note/${id}`)
-    }
-  },
+    },
 
-  computed: {
-    // 排列方式
-    listBy: function() {
-      return `list-by-${this.listType} notebook-bg`
+    // 获取笔记数量
+    getNoteNum(notebookId) {
+      return this.notesList.filter(note => note.notebookId === notebookId).length
     }
   }
   

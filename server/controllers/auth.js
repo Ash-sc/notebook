@@ -2,6 +2,7 @@ var db = require('../db/');
 
 // GET /auth/checkLogin
 exports.checkLogin = function (req, res) {
+  // res.status(404).json({})
   res.ajaxReturn(db.get('session').value());
 };
 

@@ -16,13 +16,25 @@
     .note-link {
       height: 25px;
       line-height: 25px;
-      padding-left: 20px;
+      padding: 0 20px;
       font-size: 12px;
       text-overflow: ellipsis;
       overflow: hidden;
       word-break: break-all;
       white-space: nowrap;
       cursor: pointer;
+
+      .link-a {
+        color: #ffffff;
+        text-decoration: none;
+        display: inline-block;
+        width: 100%;
+      }
+
+    }
+
+    .note-link.active {
+      background-color: #1e91e1;
     }
 
   }

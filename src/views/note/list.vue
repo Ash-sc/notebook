@@ -3,22 +3,19 @@
   <div class="note-list-page">
     <note-preview-section
     ></note-preview-section>
+    <note-edit-section
+    :note-info="$store.state.note.currentNote"
+    ></note-edit-section>
   </div>
 </template>
 <script>
 
 import NotePreviewSection from './notePreviewSection'
-import * as notebooksTypes from '@/store/types/notebooksTypes'
+import NoteEditSection from './noteEditSection'
 
 export default {
 
-  components: { NotePreviewSection },
-
-  created: function() {
-    if (!this.$store.state.notebooks.notebooksList.length && this.$route.path !== '/note/all') {
-      this.$store.dispatch(notebooksTypes.GET_NOTEBOOKS_LIST)
-    }
-  }
+  components: { NotePreviewSection, NoteEditSection }
 
 }
 </script>

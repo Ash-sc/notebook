@@ -35,17 +35,124 @@
       }
     }
 
-    .note-item-preview {
+    .note-card-preview {
       height: calc(100% - 45px);
       overflow-x: auto;
+      padding: 30px 30px 0 30px;
+
+      .note-preview-card {
+        position: relative;
+        height: 45px;
+        border: 1px solid #d9d9d9;
+        margin-bottom: 10px;
+        border-radius: 5px;
+        padding-right: 45px;
+        text-indent: 15px;
+        font-size: 14px;
+        line-height: 43px;
+        user-select: none;
+        cursor: default;
+
+        .fa {
+          position: absolute;
+          right: 0;
+          width: 43px;
+          height: 43px;
+          text-align: center;
+          line-height: 43px;
+          text-indent: 0;
+          cursor: pointer;
+        }
+      }
+
+      .note-preview-card:last-child {
+        margin-bottom: 30px;
+      }
+
+      .note-preview-card.active-note, .note-preview-card:not(.add-new-note):hover {
+        background: linear-gradient(90deg, #fffdfd, #e4fef9, #d4ecfc);
+        background: #fffdfd;
+        box-shadow: 0px 0px 8px 1px #ccc;
+      }
+
+      .note-preview-card.active-note {
+        background: linear-gradient(90deg, #fffdfd, #e4fef9, #d4ecfc);
+      }
+
+      .note-preview-card.add-new-note {
+        text-align: center;
+        cursor: pointer;
+        background: #fffdfd;
+        height: 25px;
+        line-height: 23px;
+        // box-shadow: 0px 0px 2px 1px #ccc;
+      }
     }
 
   }
 
+
   /* 右侧笔记内容区域 */
-  .note-content-section {
+  .note-edit-section {
     flex: 1;
+    position: relative;
     overflow-y: auto;
+
+    /* 保存笔记 */
+    .save-note {
+      position: absolute;
+      left: 10px;
+      top: 10px;
+      cursor: pointer;
+    }
+
+    /* 笔记标题 */
+    .note-title-input {
+      position: absolute;
+      top: 77px;
+      width: 100%;
+      height: 50px;
+      line-height: 50px;
+      padding: 0;
+      font-size: 20px;
+      text-indent: 10px;
+      color: #000000;
+      border: none;
+    }
+
+    /* 富文本编辑器部分 */
+    .vue-html5-editor {
+      height: 100%;
+      overflow-y: auto;
+      border: none;
+      border-radius: 0;
+
+      .toolbar {
+        position: absolute;
+        width: 100%;
+        top: 40px;
+      }
+
+      .content {
+        margin-top: 127px;
+        height: calc(100% - 127px);
+        min-height: auto!important;
+      }
+
+    }
+
+    /* 重写button样式 */
+    .vue-html5-editor > .toolbar > .dashboard button {
+      height: 36px;
+      line-height: 36px;
+      padding: 0 12px;
+    }
+
+    /* 重写lebel样式 */
+    .vue-html5-editor > .toolbar > .dashboard label {
+      font-weight: normal;
+    }
+
   }
 
 }

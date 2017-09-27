@@ -13,10 +13,10 @@ config.plugins.push(
   new webpack.optimize.UglifyJsPlugin({
     compress: { warnings: false }
   }),
-  new webpack.optimize.CommonsChunkPlugin({
-    name: 'manifest',
-    minChunks: Infinity
-  }),
+  // new webpack.optimize.CommonsChunkPlugin({
+  //   name: 'manifest',
+  //   minChunks: Infinity
+  // }),
   new webpack.optimize.AggressiveMergingPlugin(),
   new webpack.optimize.MinChunkSizePlugin({
     minChunkSize: 30000

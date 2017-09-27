@@ -8,7 +8,7 @@ class NotebookService {
    */
   fetchList () {
     return xhr({
-      url: '/notebook/fetchList'
+      url: '/notebook/notebooksList'
     })
   }
 

@@ -4,8 +4,8 @@ const moment = require('moment')
 const uuidv1 = require('uuid/v1')
 moment.locale('zh-cn')
 
-// GET /notebook/list
-exports.fetchList = function (req, res) {
+// GET /notebook/notebooksList
+exports.notebooksList = function (req, res) {
   notebooksModel.find({}, (err, result) => {
     res.status(200)
     if (err) {
