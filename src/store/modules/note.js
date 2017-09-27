@@ -36,7 +36,10 @@ const actions = {
     noteService
     .saveNote(noteInfo)
     .then((data) => {
-      console.log('save note success!')
+      this.dispatch('newNotification', {
+        type: 'success',
+        content: '保存成功'
+      })
       // const index = findIndex(state.notesList, { id: noteInfo.id })
       // state.notesList[index] = noteInfo
       // state.noteUpdateInfo[index] = {

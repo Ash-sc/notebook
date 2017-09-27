@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 import * as actions from './actions'
 import * as getters from './getters'
 import loading from './modules/loading'
+import notification from './modules/notification'
 import notebooks from './modules/notebooks'
 import note from './modules/note'
 // import createLogger from '../../../src/plugins/logger'
@@ -16,6 +17,7 @@ export default new Vuex.Store({
   getters,
   modules: {
     loading,
+    notification,
     notebooks,
     note
   },
