@@ -8,6 +8,14 @@ db.on('error', console.error.bind(console, '连接错误：'))
 db.once('open', (callback) => {
   console.log('MongoDB连接成功！！')
 })
+// 创建user schema
+const userSchema = new mongoose.Schema({
+  id: String,
+  userName: String,
+  password: String,
+  email: String,
+  createTime: Date
+})
 // 创建note schema
 const notesSchema = new mongoose.Schema({
   id: String,
@@ -27,10 +35,12 @@ const notebooksSchema = new mongoose.Schema({
   updateTime: Date
 })
 // 创建model
-const notebooksModel = mongoose.model('notebooks', notebooksSchema) // notebooks为创建或选中的集合
-const notesModel = mongoose.model('notes', notesSchema) // notebooks为创建或选中的集合
+const userModel = mongoose.model('users', userSchema)
+const notebooksModel = mongoose.model('notebooks', notebooksSchema)
+const notesModel = mongoose.model('notes', notesSchema)
 
 module.exports = {
+  userModel,
   notebooksModel,
   notesModel
 }

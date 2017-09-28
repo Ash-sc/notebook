@@ -1,26 +1,82 @@
-var db = require('../db/');
+const userModel = require('../mongo/').userModel
+const moment = require('moment')
+const uuidv1 = require('uuid/v1')
+moment.locale('zh-cn')
 
 // GET /auth/checkLogin
 exports.checkLogin = function (req, res) {
-  // res.status(404).json({})
-  res.ajaxReturn(db.get('session').value());
-};
+  res.status(200).json({
+    success: true,
+    data: {}
+  })
+}
+
+// POST /auth/signUp
+exports.signUp = function (req, res) {
+  const userName = (req.body.userName || '').trim()
+  const password = (req.body.password || '').trim()
+  const email = (req.body.email || '').trim()
+  userModel.find({
+    userName
+  }, (err, result) => {
+    if (err) {
+      res.status(400).json({
+        success: false,
+        errorMsg: '数据库查询错误'
+      })
+    } else if (result.length) {
+      res.status(200).json({
+        success: false,
+        errorMsg: '该用户已存在'
+      })
+    } else {
+      userModel.create({
+        id: uuidv1(),
+        userName,
+        password,
+        email,
+        createTime: moment().format('x')
+      }, (e, info) => {
+        // const { id, notebookId, userId, title, content, updateTime } = info._doc
+        res.status(200).json({
+          success: !e,
+          data: info._doc,
+          errorMsg: e
+        })
+      })
+    }
+  })
+}
 
 // POST /auth/login
 exports.login = function (req, res) {
-  var username = (req.body.username || '').trim();
-  if (!username) {
-    return res.ajaxReturn(false, { errMsg: 'username 字段为空' });
-  }
-
-  var session = { username: username };
-
-  db.set('session', session).value();
-  res.ajaxReturn(session);
-};
+  const userName = (req.body.userName || '').trim()
+  const password = (req.body.password || '').trim()
+  userModel.find({
+    userName,
+    password
+  }, (err, result) => {
+    if (err) {
+      res.status(400).json({
+        success: false,
+        errorMsg: '数据库查询错误'
+      })
+    } else if (!result.length) {
+      res.status(200).json({
+        success: false,
+        errorMsg: '用户名密码错误'
+      })
+    } else {
+      res.status(200).json({
+        success: true,
+        data: result[0],
+        errorMsg: ''
+      })
+    }
+  })
+}
 
 // DELETE /auth/logout
 exports.logout = function (req, res) {
-  db.set('session', null).value();
-  res.ajaxReturn();
-};
+  res.status(200).json({})
+}

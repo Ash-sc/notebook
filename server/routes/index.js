@@ -28,13 +28,15 @@ module.exports = [{
   method: 'GET',
   handler: authCtrls.checkLogin
 }, {
+  path: '/auth/signUp',
+  method: 'POST',
+  handler: authCtrls.signUp
+}, {
   path: '/auth/login',
   method: 'POST',
-  middlewares: [interceptor.FORBID_AUTHED],
   handler: authCtrls.login
 }, {
   path: '/auth/logout',
   method: 'DELETE',
-  middlewares: [interceptor.NEED_AUTH],
   handler: authCtrls.logout
 }];

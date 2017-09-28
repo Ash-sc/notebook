@@ -4,11 +4,11 @@ import Vue from 'vue/dist/vue.js'
 import '@/filters/'
 import router from '@/routes/'
 import App from '@/components/App'
-import authService from '@/services/authService'
+import accountService from '@/services/accountService'
 import store from './store'
 
 // 先检测登录状态再挂载根组件以便控权
-authService.checkLogin().then(userData => {
+accountService.checkLogin().then(userData => {
   if (userData) {
     const data = App.data // data 属性是一个函数
     App.data = () => ({ ...data(), userData })

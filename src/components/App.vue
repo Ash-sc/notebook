@@ -23,6 +23,7 @@ import * as notebooksTypes from '@/store/types/notebooksTypes'
 import * as noteTypes from '@/store/types/noteTypes'
 import ReqLoading from '@/components/ReqLoading/'
 import Notification from '@/components/Notification/'
+import isEmpty from 'lodash/isEmpty'
 
 export default {
   // 路由会自动将该组件挂载到 #app 上
@@ -36,6 +37,13 @@ export default {
   }),
 
   created: function() {
+    // 是否登录判断
+    const notLogin = isEmpty(JSON.parse(localStorage.accountInfo || '{}'))
+    if (notLogin) {
+      this.$router.push('/login')
+      return
+    }
+    // todo: change it.
     // 缓存中没有笔记本列表 👉 则向后端请求获取笔记本列表
     if (!this.$store.state.notebooks.notebooksList.length && this.$route.path !== '/note/all') {
       this.$store.dispatch(notebooksTypes.GET_NOTEBOOKS_LIST)

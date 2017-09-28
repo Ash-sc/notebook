@@ -58,6 +58,11 @@ body {
   word-break: break-all;
 }
 
+/* 不可选中 */
+.unselected {
+  user-select: none;
+}
+
 /* 灰色边框 */
 $gray-border: 1px solid #e3e3e3;
 
