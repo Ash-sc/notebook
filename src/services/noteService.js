@@ -13,6 +13,15 @@ class NotebookService {
   }
 
   /**
+   * 获取笔记更新时间列表
+   */
+  fetchUpdateList () {
+    return xhr({
+      url: '/note/notesUpdateList'
+    })
+  }
+
+  /**
   * 新建笔记
   * @param   {String} data.noteTitle
   * @param   {String} data.noteContent

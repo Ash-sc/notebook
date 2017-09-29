@@ -20,7 +20,7 @@ const userSchema = new mongoose.Schema({
 const notesSchema = new mongoose.Schema({
   id: String,
   notebookId: String,
-  userId: Number,
+  userId: String,
   title: String,
   content: String,
   updateTime: Date
@@ -28,10 +28,9 @@ const notesSchema = new mongoose.Schema({
 // 创建notebook schema
 const notebooksSchema = new mongoose.Schema({
   id: String,
-  userId: Number,
+  userId: String,
   name: String,
   type: String,
-  notesNum: Number,
   updateTime: Date
 })
 // 创建model

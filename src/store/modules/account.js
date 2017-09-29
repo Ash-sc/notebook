@@ -1,4 +1,6 @@
 import * as types from '../types/accountTypes'
+import * as noteTypes from '../types/noteTypes'
+import * as notebooksTypes from '../types/notebooksTypes'
 import accountService from '@/services/accountService'
 import router from '@/routes/'
 
@@ -20,9 +22,10 @@ const actions = {
     .login(formData)
     .then((data) => {
       router.push('/notebooks')
+      this.dispatch(noteTypes.GET_NOTE_LIST)
+      this.dispatch(notebooksTypes.GET_NOTEBOOKS_LIST)
       commit(types.CHANGE_ACCOUNT_INFO, { data })
     }, () => {
-      console.log(111)
       commit(types.CHANGE_ACCOUNT_INFO, { data: {} })
     })
   },
@@ -32,8 +35,9 @@ const actions = {
     accountService
     .signUp(formData)
     .then((data) => {
-      console.log('sign up data ：', data)
       router.push('/notebooks')
+      this.dispatch(noteTypes.GET_NOTE_LIST)
+      this.dispatch(notebooksTypes.GET_NOTEBOOKS_LIST)
       commit(types.CHANGE_ACCOUNT_INFO, { data })
     }, () => {
       commit(types.CHANGE_ACCOUNT_INFO, { data: {} })

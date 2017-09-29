@@ -8,6 +8,10 @@ module.exports = [{
   method: 'GET',
   handler: noteCtrls.notesList
 }, {
+  path: '/note/notesUpdateList',
+  method: 'GET',
+  handler: noteCtrls.notesUpdateList
+}, {
   path: '/note/newNote',
   method: 'POST',
   handler: noteCtrls.newNote

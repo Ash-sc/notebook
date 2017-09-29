@@ -6,7 +6,9 @@ moment.locale('zh-cn')
 
 // GET /notebook/notebooksList
 exports.notebooksList = function (req, res) {
-  notebooksModel.find({}, (err, result) => {
+  notebooksModel.find({
+    userId: req.cookies.userId
+  }, (err, result) => {
     res.status(200)
     if (err) {
       res.json({
@@ -34,7 +36,7 @@ exports.newNotebook = function (req, res) {
 
   notebooksModel.create({
     id: uuidv1(),
-    userId: 1,
+    userId: req.cookies.userId,
     name: req.body.notebookName,
     type: req.body.notebookType,
     notesNum: 0,

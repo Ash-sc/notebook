@@ -37,8 +37,10 @@ exports.signUp = function (req, res) {
         email,
         createTime: moment().format('x')
       }, (e, info) => {
-        // const { id, notebookId, userId, title, content, updateTime } = info._doc
-        res.status(200).json({
+        const { id } = info._doc
+        res.status(200)
+        res.cookie('userId', id, { httpOnly: true })
+        res.json({
           success: !e,
           data: info._doc,
           errorMsg: e
@@ -67,9 +69,12 @@ exports.login = function (req, res) {
         errorMsg: '用户名密码错误'
       })
     } else {
-      res.status(200).json({
+      const data = result[0]._doc
+      res.status(200)
+      res.cookie('userId', data.id, { httpOnly: true })
+      res.json({
         success: true,
-        data: result[0],
+        data,
         errorMsg: ''
       })
     }
