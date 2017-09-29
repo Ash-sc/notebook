@@ -12,6 +12,7 @@
     "url": "https://github.com/Ash-sc/notebook.git"
   },
   "dependencies": {
+    "cookie-parser": "^1.4.3",
     "es6-shim": "^0.35.2",
     "lodash": "^4.17.2",
     "lowdb": "^0.14.0",

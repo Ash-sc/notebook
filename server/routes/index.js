@@ -1,7 +1,7 @@
-var authCtrls = require('../controllers/auth'),
-  noteCtrls = require('../controllers/note'),
-  notebookCtrls = require('../controllers/notebook'),
-  interceptor = require('../middlewares/interceptor')
+const authCtrls = require('../controllers/auth')
+const noteCtrls = require('../controllers/note')
+const notebookCtrls = require('../controllers/notebook')
+// const interceptor = require('../middlewares/interceptor')
 
 module.exports = [{
   path: '/note/notesList',
@@ -39,4 +39,4 @@ module.exports = [{
   path: '/auth/logout',
   method: 'DELETE',
   handler: authCtrls.logout
-}];
+}]
