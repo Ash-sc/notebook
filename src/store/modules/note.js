@@ -51,7 +51,7 @@ const actions = {
     .then((data) => {
       this.dispatch('newNotification', {
         type: 'success',
-        content: '保存成功'
+        content: '笔记保存成功'
       })
       this.dispatch(types.GET_NOTE_LIST)
     }, () => {

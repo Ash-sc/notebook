@@ -58,6 +58,11 @@ export default {
     // 新建笔记
     addNewNote: function() {
       const notebookId = this.$route.params.notebookId.replace(/^all$/, '')
+      if (!this.notebooksList.length && !notebookId) {
+        // todo: change alert to notification
+        alert('you should create a notebook first !')
+        return
+      }
       const noteInfo = {
         notebookId: notebookId
           ? notebookId : this.notebooksList[0].id

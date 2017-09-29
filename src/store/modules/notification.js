@@ -44,7 +44,7 @@ const mutations = {
     })
     newArr.push({
       ...data,
-      closeTime: moment().add(3, 's').format('x')
+      closeTime: moment().add(300, 's').format('x')
     })
     state.notificationsArr = newArr
     if (newArr.length) {
