@@ -6,7 +6,7 @@ import moment from 'moment'
 // initial state
 // shape: [{ id, quantity }]
 const state = {
-  noteUpdateInfo: JSON.parse(localStorage.noteUpdateInfo || '[]'), // 笔记更新信息
+  noteUpdateList: JSON.parse(localStorage.noteUpdateList || '[]'), // 笔记更新信息
   notesList: JSON.parse(localStorage.notesList || '[]'), // 笔记详细信息
   currentNote: {} // 当前笔记
 }
@@ -31,6 +31,19 @@ const actions = {
     })
   },
 
+  // 获取笔记更新列表
+  [types.GET_NOTE_UPDATE_LIST]({ commit, state }) {
+    noteService
+    .fetchUpdateList()
+    .then((data) => {
+      if (data[0].id !== state.noteUpdateList[0].id ||
+        data[0].updateTime !== state.noteUpdateList[0].updateTime
+      ) {
+        this.dispatch(types.GET_NOTE_LIST)
+      }
+    })
+  },
+
   // 保存笔记
   [types.SAVE_NOTE]({ commit, state }, noteInfo) {
     noteService
@@ -40,12 +53,6 @@ const actions = {
         type: 'success',
         content: '保存成功'
       })
-      // const index = findIndex(state.notesList, { id: noteInfo.id })
-      // state.notesList[index] = noteInfo
-      // state.noteUpdateInfo[index] = {
-      //   id: noteInfo.id,
-      //   updateTime: noteInfo.updateTime
-      // }
       this.dispatch(types.GET_NOTE_LIST)
     }, () => {
       console.log('save note error!')
@@ -70,7 +77,9 @@ const actions = {
 const mutations = {
   [types.GET_NOTE_LIST_SUCCESS](state, { data }) {
     state.notesList = data
+    state.noteUpdateList = data.map(note => ({ id: note.id, updateTime: note.updateTime }))
     localStorage.notesList = JSON.stringify(data)
+    localStorage.noteUpdateList = JSON.stringify(state.noteUpdateList)
     if (data.length) {
       state.currentNote = Object.assign({}, data[0])
     }

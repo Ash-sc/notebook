@@ -1,12 +1,16 @@
-var authCtrls = require('../controllers/auth'),
-  noteCtrls = require('../controllers/note'),
-  notebookCtrls = require('../controllers/notebook'),
-  interceptor = require('../middlewares/interceptor')
+const authCtrls = require('../controllers/auth')
+const noteCtrls = require('../controllers/note')
+const notebookCtrls = require('../controllers/notebook')
+// const interceptor = require('../middlewares/interceptor')
 
 module.exports = [{
   path: '/note/notesList',
   method: 'GET',
   handler: noteCtrls.notesList
+}, {
+  path: '/note/notesUpdateList',
+  method: 'GET',
+  handler: noteCtrls.notesUpdateList
 }, {
   path: '/note/newNote',
   method: 'POST',
@@ -28,13 +32,15 @@ module.exports = [{
   method: 'GET',
   handler: authCtrls.checkLogin
 }, {
+  path: '/auth/signUp',
+  method: 'POST',
+  handler: authCtrls.signUp
+}, {
   path: '/auth/login',
   method: 'POST',
-  middlewares: [interceptor.FORBID_AUTHED],
   handler: authCtrls.login
 }, {
   path: '/auth/logout',
   method: 'DELETE',
-  middlewares: [interceptor.NEED_AUTH],
   handler: authCtrls.logout
-}];
+}]

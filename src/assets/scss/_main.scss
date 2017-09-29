@@ -12,6 +12,22 @@ body {
 
 }
 
+@keyframes pageShow {
+
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+  
+}
+
+.page-show {
+  animation: pageShow 2s both ease;
+}
+
 .main-content {
   width: 100%;
   display: flex;
@@ -56,6 +72,11 @@ body {
   text-overflow: ellipsis;
   white-space: nowrap;
   word-break: break-all;
+}
+
+/* 不可选中 */
+.unselected {
+  user-select: none;
 }
 
 /* 灰色边框 */

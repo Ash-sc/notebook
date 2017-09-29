@@ -1,5 +1,7 @@
 <template>
-  <div>
+  <div
+    :style="{ display: $route.path === '/' ? 'none' : 'inherit' }"
+  >
     <req-loading></req-loading>
     <notification></notification>
     <navbar></navbar>
@@ -23,6 +25,7 @@ import * as notebooksTypes from '@/store/types/notebooksTypes'
 import * as noteTypes from '@/store/types/noteTypes'
 import ReqLoading from '@/components/ReqLoading/'
 import Notification from '@/components/Notification/'
+import isEmpty from 'lodash/isEmpty'
 
 export default {
   // 路由会自动将该组件挂载到 #app 上
@@ -36,14 +39,22 @@ export default {
   }),
 
   created: function() {
-    // 缓存中没有笔记本列表 👉 则向后端请求获取笔记本列表
-    if (!this.$store.state.notebooks.notebooksList.length && this.$route.path !== '/note/all') {
-      this.$store.dispatch(notebooksTypes.GET_NOTEBOOKS_LIST)
+    // 是否登录判断
+    const notLogin = isEmpty(JSON.parse(localStorage.accountInfo || '{}'))
+    if (notLogin) {
+      this.$router.push('/login')
+      return
     }
 
-    // 缓存中没有笔记列表 👉 则向后端请求笔记列表
+    // 获取笔记本列表
+    this.$store.dispatch(notebooksTypes.GET_NOTEBOOKS_LIST)
+
+    // 缓存中没有笔记列表 👉 则向后端请求笔记列表, 否则获取笔记更新列表
     if (!this.$store.state.note.notesList.length) {
       this.$store.dispatch(noteTypes.GET_NOTE_LIST)
+    } else {
+      // 笔记更新列表
+      this.$store.dispatch(noteTypes.GET_NOTE_UPDATE_LIST)
     }
   }
 }

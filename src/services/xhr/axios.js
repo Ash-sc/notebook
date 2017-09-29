@@ -23,9 +23,9 @@ const xhr = ({ method = 'get', url, body = null }) => {
       url: reqPath,
       data: body
     }).then(res => {
-      const { status, data } = res
+      const { data } = res
       store.commit(loadingType.LOADING_CHANGE, { path: rootPath, loading: false })
-      if (status !== 200) {
+      if (!data.success) {
         return reject(data)
       }
       resolve(data.data)

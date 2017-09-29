@@ -1,4 +1,4 @@
-window._ = require('lodash'); // lowdb 依赖
+window._ = require('lodash') // lowdb 依赖
 
 var tinyExpress = require('tiny-express'),
   qs = require('query-string'),

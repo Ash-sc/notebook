@@ -3,7 +3,7 @@ import xhr from './xhr/'
 /**
  * 用户认证所用到的 API
  */
-class AuthService {
+class AccountService {
 
   /**
    * 检测当前用户是否已经登录
@@ -17,13 +17,29 @@ class AuthService {
 
   /**
    * 登录
-   * @param  {String} userData.username
+   * @param  {String} userData.userName
+   * @param  {String} userData.password
    * @return {Object} userData
    */
   login (userData) {
     return xhr({
       method: 'post',
       url: '/auth/login',
+      body: userData
+    })
+  }
+
+
+  /**
+   * 注册
+   * @param  {String} userData.userName
+   * @param  {String} userData.password
+   * @return {Object} userData
+   */
+  signUp (userData) {
+    return xhr({
+      method: 'post',
+      url: '/auth/signUp',
       body: userData
     })
   }
@@ -42,4 +58,4 @@ class AuthService {
 }
 
 // 实例化后导出，全局单例
-export default new AuthService()
+export default new AccountService()
