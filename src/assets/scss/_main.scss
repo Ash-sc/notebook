@@ -12,6 +12,22 @@ body {
 
 }
 
+@keyframes pageShow {
+
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+  
+}
+
+.page-show {
+  animation: pageShow 2s both ease;
+}
+
 .main-content {
   width: 100%;
   display: flex;

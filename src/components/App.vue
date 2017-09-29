@@ -1,5 +1,7 @@
 <template>
-  <div>
+  <div
+    :style="{ display: $route.path === '/' ? 'none' : 'inherit' }"
+  >
     <req-loading></req-loading>
     <notification></notification>
     <navbar></navbar>
