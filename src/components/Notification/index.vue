@@ -1,10 +1,18 @@
 <template>
   <div class="notification-bg">
     <div
-      v-for="item in $store.state.notification.notificationsArr"
+      v-for="(item, index) in $store.state.notification.notificationsArr"
       :key="item.closeTime"
+      class="notification-item"
+      :class="{'will-close': item.willClose }"
     >
-      {{item.content}}--{{item.closeTime}}
+      <span
+        class="notification-icon"
+        :class="`icon-${item.type}`"
+      ></span>
+      <div class="notification-content">
+        {{item.content}}
+      </div>
     </div>
   </div>
 </template>

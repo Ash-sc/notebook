@@ -22,12 +22,12 @@ exports.signUp = function (req, res) {
     if (err) {
       res.status(400).json({
         success: false,
-        errorMsg: '数据库查询错误'
+        errorMsg: 'Server error, please do it later.'
       })
     } else if (result.length) {
       res.status(200).json({
         success: false,
-        errorMsg: '该用户已存在'
+        errorMsg: 'Sorry, this username has aleady exist.'
       })
     } else {
       userModel.create({
@@ -61,12 +61,12 @@ exports.login = function (req, res) {
     if (err) {
       res.status(400).json({
         success: false,
-        errorMsg: '数据库查询错误'
+        errorMsg: 'Server error, please do it later.'
       })
     } else if (!result.length) {
       res.status(200).json({
         success: false,
-        errorMsg: '用户名密码错误'
+        errorMsg: 'Error username or password.'
       })
     } else {
       const data = result[0]._doc
