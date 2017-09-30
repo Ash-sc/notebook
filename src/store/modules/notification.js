@@ -49,7 +49,7 @@ const mutations = {
   [types.NEW_NOTIFICATION](state, { data }) {
     state.notificationsArr.push({
       ...data,
-      closeTime: moment().add(300, 's').format('x')
+      closeTime: moment().add(3, 's').format('x')
     })
     if (!timer) {
       this.commit(types.REFRESH_NOTIFICATION)
