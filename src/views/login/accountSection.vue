@@ -12,7 +12,13 @@
         <input
           type="text"
           class="form-input btn"
-          v-model="formData.userName" maxlength="40"
+          v-model="formData.userName" maxlength="20"
+          placeholder="Username"
+        />
+        <input
+          type="text"
+          class="form-input btn"
+          v-model="formData.email" maxlength="40"
           placeholder="Email"
         />
         <input
@@ -20,6 +26,7 @@
           class="form-input btn"
           v-model="formData.password" maxlength="20"
           placeholder="password"
+          @keyup.enter="singUp"
         />
         <button
           class="form-btn btn"
@@ -41,13 +48,14 @@
           type="text"
           class="form-input btn"
           v-model="formData.userName" maxlength="40"
-          placeholder="Email address or username"
+          placeholder="Username"
         />
         <input
           type="password"
           class="form-input btn"
           v-model="formData.password" maxlength="20"
           placeholder="password"
+          @keyup.enter="singIn"
         />
         <button
           class="form-btn btn"
@@ -71,6 +79,11 @@ export default {
   methods: {
     // 切换登录和注册
     changeSection: function(type) {
+      this.formData = {
+        userName: '',
+        password: '',
+        email: ''
+      }
       return this.activeSection = type
     },
 

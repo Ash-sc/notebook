@@ -4,6 +4,7 @@
       v-for="(item, index) in $store.state.notification.notificationsArr"
       :key="item.closeTime"
       class="notification-item"
+      :class="{'will-close': item.willClose }"
     >
       <span
         class="notification-icon"

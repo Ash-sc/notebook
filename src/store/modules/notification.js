@@ -12,6 +12,8 @@ const getters = {
   notificationsArr: state => state.notificationsArr
 }
 
+let timer = null
+
 // actions
 const actions = {
   newNotification({ commit, state }, data) {
@@ -27,27 +29,29 @@ const mutations = {
   // 刷新notification
   [types.REFRESH_NOTIFICATION](state) {
     const arr = state.notificationsArr.filter(item => {
-      return item.closeTime >= moment().format('x')
+      const milliseconds = moment().format('x') - item.closeTime
+      if (milliseconds >= 0) {
+        item.willClose = true
+      }
+      return milliseconds < 400
     })
     state.notificationsArr = arr
-    if (!arr.length) return
-    if (arr.length) {
-      setTimeout(() => {
+    if (!arr.length) {
+      clearTimeout(timer)
+      timer = null
+    } else {
+      timer = setTimeout(() => {
         this.commit(types.REFRESH_NOTIFICATION)
       }, 200)
     }
   },
   // 新增notification
   [types.NEW_NOTIFICATION](state, { data }) {
-    const newArr = state.notificationsArr.filter(item => {
-      return item.closeTime >= moment().format('x')
-    })
-    newArr.push({
+    state.notificationsArr.push({
       ...data,
       closeTime: moment().add(300, 's').format('x')
     })
-    state.notificationsArr = newArr
-    if (newArr.length) {
+    if (!timer) {
       this.commit(types.REFRESH_NOTIFICATION)
     }
   },

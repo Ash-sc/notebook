@@ -60,7 +60,10 @@ export default {
       const notebookId = this.$route.params.notebookId.replace(/^all$/, '')
       if (!this.notebooksList.length && !notebookId) {
         // todo: change alert to notification
-        alert('you should create a notebook first !')
+        this.$store.dispatch('newNotification', {
+        type: 'error',
+        content: 'Sorry, please create a notebook first.'
+      })
         return
       }
       const noteInfo = {

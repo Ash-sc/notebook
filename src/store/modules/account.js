@@ -25,7 +25,11 @@ const actions = {
       this.dispatch(noteTypes.GET_NOTE_LIST)
       this.dispatch(notebooksTypes.GET_NOTEBOOKS_LIST)
       commit(types.CHANGE_ACCOUNT_INFO, { data })
-    }, () => {
+    }, (err) => {
+      this.dispatch('newNotification', {
+        type: 'error',
+        content: err.errorMsg
+      })
       commit(types.CHANGE_ACCOUNT_INFO, { data: {} })
     })
   },
