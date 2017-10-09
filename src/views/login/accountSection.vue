@@ -100,8 +100,6 @@ export default {
       if (!userName || !password || password.length < 8) return
       this.$store.dispatch(types.USER_SIGN_UP, this.formData)
     }
-  },
-  created: function() {
   }
 }
 </script>
