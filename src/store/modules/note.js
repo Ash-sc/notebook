@@ -36,7 +36,8 @@ const actions = {
     noteService
     .fetchUpdateList()
     .then((data) => {
-      if (data[0].id !== state.noteUpdateList[0].id ||
+      if (data && data.length &&
+        data[0].id !== state.noteUpdateList[0].id ||
         data[0].updateTime !== state.noteUpdateList[0].updateTime
       ) {
         this.dispatch(types.GET_NOTE_LIST)

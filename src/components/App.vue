@@ -25,7 +25,6 @@ import * as notebooksTypes from '@/store/types/notebooksTypes'
 import * as noteTypes from '@/store/types/noteTypes'
 import ReqLoading from '@/components/ReqLoading/'
 import Notification from '@/components/Notification/'
-import isEmpty from 'lodash/isEmpty'
 
 export default {
   // 路由会自动将该组件挂载到 #app 上
@@ -39,13 +38,6 @@ export default {
   }),
 
   created: function() {
-    // 是否登录判断
-    const notLogin = isEmpty(JSON.parse(localStorage.accountInfo || '{}'))
-    if (notLogin) {
-      this.$router.push('/login')
-      return
-    }
-
     // 获取笔记本列表
     this.$store.dispatch(notebooksTypes.GET_NOTEBOOKS_LIST)
 

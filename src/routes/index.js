@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import routerList from './routerList'
+import isEmpty from 'lodash/isEmpty'
 
 Vue.use(VueRouter)
 
@@ -13,6 +14,15 @@ const router = new VueRouter({
   // linkActiveClass: '',
   suppressTransitionError: __PROD__, // 生产环境下不抛出异常
   routes: routerList
+})
+
+router.beforeEach((to, from, next) => {
+  const notLogin = isEmpty(JSON.parse(localStorage.accountInfo || '{}'))
+  if (to.path !== '/login' && notLogin) {
+    router.push('/login')
+    return
+  }
+  next()
 })
 
 // router.map(Object.values(routesMap))

@@ -8,9 +8,6 @@
 <script>
 import AccountSection from './accountSection'
 export default {
-  components: { AccountSection },
-  created: function() {
-    console.log('login page!')
-  }
+  components: { AccountSection }
 }
 </script>

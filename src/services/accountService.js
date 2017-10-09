@@ -50,7 +50,7 @@ class AccountService {
    */
   logout () {
     return xhr({
-      method: 'delete',
+      method: 'post',
       url: '/auth/logout'
     })
   }

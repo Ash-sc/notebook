@@ -11,7 +11,8 @@ const state = {
 
 // getters
 const getters = {
-  accountInfo: state => state.accountInfo
+  accountInfo: state => state.accountInfo,
+  showAccountSetting: state => state.showAccountSetting
 }
 
 // actions
@@ -21,10 +22,10 @@ const actions = {
     accountService
     .login(formData)
     .then((data) => {
-      router.push('/notebooks')
       this.dispatch(noteTypes.GET_NOTE_LIST)
       this.dispatch(notebooksTypes.GET_NOTEBOOKS_LIST)
       commit(types.CHANGE_ACCOUNT_INFO, { data })
+      router.push('/notebooks')
     }, (err) => {
       this.dispatch('newNotification', {
         type: 'error',
@@ -39,10 +40,10 @@ const actions = {
     accountService
     .signUp(formData)
     .then((data) => {
-      router.push('/notebooks')
       this.dispatch(noteTypes.GET_NOTE_LIST)
       this.dispatch(notebooksTypes.GET_NOTEBOOKS_LIST)
       commit(types.CHANGE_ACCOUNT_INFO, { data })
+      router.push('/notebooks')
     }, () => {
       commit(types.CHANGE_ACCOUNT_INFO, { data: {} })
     })
