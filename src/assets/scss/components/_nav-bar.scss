@@ -47,6 +47,8 @@ nav.navbar {
 
     .account-name {
       font-size: 12px;
+      display: inline-block;
+      max-width: 60px;
     }
 
     .right-section {
@@ -74,6 +76,64 @@ nav.navbar {
     }
     
 
+  }
+
+}
+
+/* 账号信息以及设置部分 */
+.account-setting {
+  position: absolute;
+  width: 300px;
+  background: #ffffff;
+  border-radius: 4px;
+  z-index: 1024;
+  margin-top: 5px;
+  border: $gray-border;
+  border-left: none;
+  padding: 10px 0 0 0;
+
+  .image-and-name {
+    height: 51px;
+    padding: 5px 10px 5px 10px;
+    line-height: 40px;
+    margin-bottom: 10px;
+  }
+
+  .account-iamge {
+    width: 40px;
+    height: 40px;
+    display: inline-block;
+    border-radius: 20px;
+  }
+  
+  .txt-ellipsis.account-name-span {
+    display: inline-block;
+    font-size: 14px;
+    height: 40px;
+    width: calc(100% - 50px);
+    line-height: 40px;
+    margin-left: 10px;
+  }
+
+  .account-info-p, .log-out-p {
+    margin: 0;
+    height: 38px;
+    line-height: 28px;
+    text-indent: 10px;
+    font-size: 15px;
+    padding: 5px 0;
+    background-clip: content-box;
+  }
+
+  .account-info-p {
+    border-top: $gray-border;
+    height: 34px;
+    padding-bottom: 0;
+  }
+
+  .image-and-name:hover, .account-info-p:hover, .log-out-p:hover {
+    background-color: #127cdf;
+    color: #fff;
   }
 
 }
