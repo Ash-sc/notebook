@@ -25,7 +25,7 @@
           type="password"
           class="form-input btn"
           v-model="formData.password" maxlength="20"
-          placeholder="password"
+          placeholder="password (8-20 words)"
           @keyup.enter="singUp"
         />
         <button
@@ -96,8 +96,8 @@ export default {
 
     // 注册
     singUp: function() {
-      const { userName, password } = this.formData
-      if (!userName || !password || password.length < 8) return
+      const { userName, password, email } = this.formData
+      if (!userName || !password || !email || password.length < 8) return
       this.$store.dispatch(types.USER_SIGN_UP, this.formData)
     }
   }
