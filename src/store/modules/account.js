@@ -15,6 +15,13 @@ const getters = {
   showAccountSetting: state => state.showAccountSetting
 }
 
+const Notification = function(type, content) {
+  this.dispatch('newNotification', {
+    type,
+    content
+  })
+}
+
 // actions
 const actions = {
   // 用户登录
@@ -22,15 +29,13 @@ const actions = {
     accountService
     .login(formData)
     .then((data) => {
+      Notification.call(this, 'success', 'Welcome!')
       this.dispatch(noteTypes.GET_NOTE_LIST)
       this.dispatch(notebooksTypes.GET_NOTEBOOKS_LIST)
       commit(types.CHANGE_ACCOUNT_INFO, { data })
       router.push('/notebooks')
     }, (err) => {
-      this.dispatch('newNotification', {
-        type: 'error',
-        content: err.errorMsg
-      })
+      Notification.call(this, 'error', err.errorMsg)
       commit(types.CHANGE_ACCOUNT_INFO, { data: {} })
     })
   },
@@ -40,11 +45,13 @@ const actions = {
     accountService
     .signUp(formData)
     .then((data) => {
+      Notification.call(this, 'success', 'Welcome!')
       this.dispatch(noteTypes.GET_NOTE_LIST)
       this.dispatch(notebooksTypes.GET_NOTEBOOKS_LIST)
       commit(types.CHANGE_ACCOUNT_INFO, { data })
       router.push('/notebooks')
-    }, () => {
+    }, (err) => {
+      Notification.call(this, 'error', err.errorMsg)
       commit(types.CHANGE_ACCOUNT_INFO, { data: {} })
     })
   }

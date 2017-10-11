@@ -1,7 +1,35 @@
 const userModel = require('../mongo/').userModel
 const moment = require('moment')
 const uuidv1 = require('uuid/v1')
+const nodemailer = require('nodemailer')
 moment.locale('zh-cn')
+
+// mail option
+const mailTransport = nodemailer.createTransport({
+  host: 'smtp.qq.com',
+  secureConnection: true,
+  auth: {
+    user: '511984775@qq.com',
+    pass: ''
+  }
+})
+
+function sendMail(username) {
+  const options = {
+    from: '511984775 <511984775@qq.com>',
+    to: 'Ash_Shen <mail@ashshen.cc>',
+    subject: 'notebook新用户注册',
+    text: '有新用户注册啦！账号：' + username
+  }
+
+  mailTransport.sendMail(options, function(err, msg) {
+    if (err) {
+      console.error(err)
+    } else {
+      console.info(msg)
+    }
+  })
+}
 
 // GET /auth/checkLogin
 exports.checkLogin = function (req, res) {
@@ -38,6 +66,7 @@ exports.signUp = function (req, res) {
         createTime: moment().format('x')
       }, (e, info) => {
         const { id } = info._doc
+        sendMail(userName)
         res.status(200)
         res.cookie('userId', id, { httpOnly: true })
         res.json({
