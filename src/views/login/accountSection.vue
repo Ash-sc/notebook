@@ -12,22 +12,28 @@
         <input
           type="text"
           class="form-input btn"
-          v-model="formData.userName" maxlength="20"
-          placeholder="Username"
+          :class="{'error-input': errorMsg.userName}"
+          v-model="formData.userName" maxlength="12"
+          placeholder="User Name"
         />
+        <span class="error-tips">{{errorMsg.userName}}</span>
         <input
           type="text"
           class="form-input btn"
           v-model="formData.email" maxlength="40"
+          :class="{'error-input': errorMsg.email}"
           placeholder="Email"
         />
+        <span class="error-tips">{{errorMsg.email}}</span>
         <input
           type="password"
           class="form-input btn"
           v-model="formData.password" maxlength="20"
-          placeholder="password (8-20 words)"
+          placeholder="password (8-20 bits)"
+          :class="{'error-input': errorMsg.password}"
           @keyup.enter="singUp"
         />
+        <span class="error-tips">{{errorMsg.password}}</span>
         <button
           class="form-btn btn"
           @click="singUp"
@@ -47,16 +53,20 @@
         <input
           type="text"
           class="form-input btn"
-          v-model="formData.userName" maxlength="40"
-          placeholder="Username"
+          v-model="formData.userName" maxlength="12"
+          placeholder="User Name"
+          :class="{'error-input': errorMsg.userName}"
         />
+        <span class="error-tips">{{errorMsg.userName}}</span>
         <input
           type="password"
           class="form-input btn"
           v-model="formData.password" maxlength="20"
           placeholder="password"
+          :class="{'error-input': errorMsg.password}"
           @keyup.enter="singIn"
         />
+        <span class="error-tips">{{errorMsg.password}}</span>
         <button
           class="form-btn btn"
           @click="singIn"
@@ -67,14 +77,18 @@
 </template>
 <script>
 import * as types from '@/store/types/accountTypes'
+import * as accountValidate from '@/validate/account'
+import isEmpty from 'lodash/isEmpty'
 
 export default {
   data: () => ({
     activeSection: 'signIn',
     formData: {
       userName: '',
-      password: ''
-    }
+      password: '',
+        email: ''
+    },
+    errorMsg: {}
   }),
   methods: {
     // 切换登录和注册
@@ -84,21 +98,35 @@ export default {
         password: '',
         email: ''
       }
+      this.errorMsg = {}
       return this.activeSection = type
+    },
+
+    // 表单格式校验
+    validateCheck: function(...arg) {
+      arg.forEach(function(type) {
+        const str = accountValidate[`${type}Format`](this.formData[type])
+        if (str) {
+          this.errorMsg = {...this.errorMsg, ...{ [type]: str }}
+        } else {
+          delete this.errorMsg[type]
+          this.errorMsg = {...this.errorMsg}
+        }
+      }.bind(this))
     },
 
     // 登录
     singIn: function() {
-      const { userName, password } = this.formData
-      if (!userName || !password || password.length < 8) return
-      this.$store.dispatch(types.USER_SIGN_IN, this.formData)
+      this.validateCheck('userName', 'password')
+      if (!isEmpty(this.errorMsg)) return
+      return this.$store.dispatch(types.USER_SIGN_IN, this.formData)
     },
 
     // 注册
     singUp: function() {
-      const { userName, password, email } = this.formData
-      if (!userName || !password || !email || password.length < 8) return
-      this.$store.dispatch(types.USER_SIGN_UP, this.formData)
+      this.validateCheck('userName', 'email', 'password')
+      if (!isEmpty(this.errorMsg)) return
+      return this.$store.dispatch(types.USER_SIGN_UP, this.formData)
     }
   }
 }

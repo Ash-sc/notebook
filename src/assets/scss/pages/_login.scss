@@ -38,7 +38,7 @@
         height: 0;
         opacity: 0;
         transition: height .2s ease-in-out, opacity .2s ease-in-out;
-        overflow: hidden;
+        overflow: scroll;
 
         .form-input, .form-btn {
           width: 360px;
@@ -51,6 +51,14 @@
           cursor: inherit;
         }
 
+        .error-tips {
+          display: block;
+          margin: 4px 20px 0 20px;
+          font-size: 12px;
+          height: 12px;
+          color: red;
+        }
+
         .form-input:active, .form-btn:active {
           box-shadow: none;
         }
@@ -58,6 +66,11 @@
         .form-input:focus{
           box-shadow: 0px 0px 4px 1px #419eff;
           border-color: #419eff;
+        }
+
+        .form-input.error-input {
+          box-shadow: 0px 0px 4px 1px #ff6666;
+          border-color: #ffb3b3;
         }
 
         .form-btn {
