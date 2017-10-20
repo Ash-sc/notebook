@@ -12,6 +12,7 @@
     "url": "https://github.com/Ash-sc/notebook.git"
   },
   "dependencies": {
+    "axios": "^0.16.2",
     "cookie-parser": "^1.4.3",
     "es6-shim": "^0.35.2",
     "lodash": "^4.17.2",
@@ -24,8 +25,9 @@
     "uuid": "^3.1.0",
     "vue": "^2.4.2",
     "vue-html5-editor": "^1.1.1",
-    "vue-loader": "^13.0.5",
+    "vue-loader": "^8.0.0",
     "vue-router": "^2.4.0",
+    "vue-template-compiler": "^2.5.2",
     "vuex": "^2.4.0"
   },
   "devDependencies": {
@@ -72,7 +74,6 @@
     "url-loader": "^0.5.7",
     "vue-hot-reload-api": "^1.2.0",
     "vue-html-loader": "^1.0.0",
-    "vue-loader": "^8.0.0",
     "vue-style-loader": "^1.0.0",
     "webpack": "^1.12.2",
     "webpack-dev-middleware": "^1.4.0",
