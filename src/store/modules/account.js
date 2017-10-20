@@ -3,6 +3,7 @@ import * as noteTypes from '../types/noteTypes'
 import * as notebooksTypes from '../types/notebooksTypes'
 import accountService from '@/services/accountService'
 import router from '@/routes/'
+import md5 from 'crypto-js/md5'
 
 // initial state
 const state = {
@@ -22,12 +23,18 @@ const Notification = function(type, content) {
   })
 }
 
+const dealData = function(formData) {
+  const obj = Object.assign({}, formData)
+  obj.password = md5(obj.password).toString()
+  return obj
+}
+
 // actions
 const actions = {
   // 用户登录
   [types.USER_SIGN_IN]({ commit, state }, formData) {
     accountService
-    .login(formData)
+    .login(dealData(formData))
     .then((data) => {
       Notification.call(this, 'success', 'Welcome!')
       this.dispatch(noteTypes.GET_NOTE_LIST)
@@ -43,7 +50,7 @@ const actions = {
   // 用户注册
   [types.USER_SIGN_UP]({ commit, state }, formData) {
     accountService
-    .signUp(formData)
+    .signUp(dealData(formData))
     .then((data) => {
       Notification.call(this, 'success', 'Welcome!')
       this.dispatch(noteTypes.GET_NOTE_LIST)

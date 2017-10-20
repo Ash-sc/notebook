@@ -71,7 +71,11 @@ exports.signUp = function (req, res) {
         res.cookie('userId', id, { httpOnly: true })
         res.json({
           success: !e,
-          data: info._doc,
+          data: {
+            userName: info._doc.userName,
+            email: info._doc.email,
+            id: info._doc.id
+          },
           errorMsg: e
         })
       })
@@ -103,7 +107,11 @@ exports.login = function (req, res) {
       res.cookie('userId', data.id, { httpOnly: true })
       res.json({
         success: true,
-        data,
+        data: {
+          userName: data.userName,
+          email: data.email,
+          id: data.id
+        },
         errorMsg: ''
       })
     }
