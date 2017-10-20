@@ -1,6 +1,6 @@
 {
   "name": "vue-notebook",
-  "description": "A notebook developed by Vue 1.x",
+  "description": "A notebook developed by Vue 2.x",
   "author": "ashshen",
   "version": "1.0.0",
   "scripts": {
