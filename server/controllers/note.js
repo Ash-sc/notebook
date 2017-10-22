@@ -1,39 +1,38 @@
 // mongoDB
-const notesModel = require('../mongo/').notesModel
+const noteModel = require('../models/note')
 const moment = require('moment')
 const uuidv1 = require('uuid/v1')
 moment.locale('zh-cn')
 
 const listDeal = (req, res, type = 'all') => {
-  notesModel.find({
+  noteModel.noteList({
     userId: req.cookies.userId
-  }, (err, result) => {
-    res.status(200)
-    if (err) {
-      res.json({
-        success: false,
-        errorMsg: err
-      })
-    } else {
-      const data = result.map(item => {
-        const { id, notebookId, userId, title, content, updateTime } = item
-        return type === 'all' ? {
-          id,
-          notebookId,
-          userId,
-          title,
-          content,
-          updateTime: moment(updateTime).format('x')
-        } : {
-          id,
-          updateTime: moment(updateTime).format('x')
-        }
-      }).sort((a, b) => a.updateTime < b.updateTime)
-      res.json({
-        success: true,
-        data
-      })
-    }
+  })
+  .then(result => {
+    const data = result.map(item => {
+      const { id, notebookId, userId, title, content, updateTime } = item
+      return type === 'all' ? {
+        id,
+        notebookId,
+        userId,
+        title,
+        content,
+        updateTime: moment(updateTime).format('x')
+      } : {
+        id,
+        updateTime: moment(updateTime).format('x')
+      }
+    }).sort((a, b) => a.updateTime < b.updateTime)
+    return res.status(200).json({
+      success: true,
+      data
+    })
+  })
+  .catch(err => {
+    return res.status(400).json({
+      success: false,
+      errorMsg: err
+    })
   })
 }
 // GET /note/notesList
@@ -48,17 +47,18 @@ exports.notesUpdateList = function (req, res) {
 
 // post /note/newNote
 exports.newNote = function (req, res) {
-  notesModel.create({
+  noteModel.newNote({
     id: uuidv1(),
     notebookId: req.body.notebookId,
     userId: req.cookies.userId,
     title: '',
     content: '',
     updateTime: moment().format('x')
-  }, (err, info) => {
-    const { id, notebookId, userId, title, content, updateTime } = info._doc
-    res.status(200).json({
-      success: !err,
+  })
+  .then(result => {
+    const { id, notebookId, userId, title, content, updateTime } = result._doc
+    return res.status(200).json({
+      success: true,
       data: {
         id,
         notebookId,
@@ -67,6 +67,12 @@ exports.newNote = function (req, res) {
         content,
         updateTime: moment(updateTime).format('YYYY-MM-DD HH:mm:ss')
       },
+      errorMsg: ''
+    })
+  })
+  .catch(err => {
+    return res.status(400).json({
+      success: false,
       errorMsg: err
     })
   })
@@ -74,13 +80,20 @@ exports.newNote = function (req, res) {
 
 // post /note/saveNote
 exports.saveNote = function (req, res) {
-  notesModel.update({
+  noteModel.updateNote({
     id: req.body.id,
     userId: req.cookies.userId
-  }, req.body, (err) => {
+  }, req.body)
+  .then(() => {
     res.status(200).json({
-      success: !err,
+      success: true,
       data: {},
+      errorMsg: ''
+    })
+  })
+  .catch(err => {
+    return res.status(400).json({
+      success: false,
       errorMsg: err
     })
   })

@@ -1,50 +1,55 @@
 // mongoDB
-const notebooksModel = require('../mongo/').notebooksModel
+const notebookModel = require('../models/notebook')
 const moment = require('moment')
 const uuidv1 = require('uuid/v1')
 moment.locale('zh-cn')
 
 // GET /notebook/notebooksList
 exports.notebooksList = function (req, res) {
-  notebooksModel.find({
+  notebookModel.getList({
     userId: req.cookies.userId
-  }, (err, result) => {
-    res.status(200)
-    if (err) {
-      res.json({
-        success: false,
-        errorMsg: err
-      })
-    } else {
-      const data = result.map(item => {
-        return {
-          name: item.name,
-          id: item.id,
-          num: item.notesNum,
-          lastUpdateTime: moment(item.updateTime).format('YYYY-MM-DD HH:mm:ss')
-        }
-      })
-      res.json({
-        success: true,
-        data
-      })
-    }
+  })
+  .then(result => {
+    const data = result.map(item => {
+      return {
+        name: item.name,
+        id: item.id,
+        num: item.notesNum,
+        lastUpdateTime: moment(item.updateTime).format('YYYY-MM-DD HH:mm:ss')
+      }
+    })
+    res.status(200).json({
+      success: true,
+      data
+    })
+  })
+  .catch(err => {
+    return res.status(400).json({
+      success: false,
+      errorMsg: err
+    })
   })
 }
 
 exports.newNotebook = function (req, res) {
-
-  notebooksModel.create({
+  notebookModel.newNotebook({
     id: uuidv1(),
     userId: req.cookies.userId,
     name: req.body.notebookName,
     type: req.body.notebookType,
     notesNum: 0,
     updateTime: moment().format('x')
-  }, (err) => {
+  })
+  .then(() => {
     res.status(200).json({
-      success: !err,
+      success: true,
       data: {},
+      errorMsg: ''
+    })
+  })
+  .catch(err => {
+    return res.status(400).json({
+      success: false,
       errorMsg: err
     })
   })
