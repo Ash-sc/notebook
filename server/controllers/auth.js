@@ -2,6 +2,7 @@ const moment = require('moment')
 const uuidv1 = require('uuid/v1')
 // const nodemailer = require('nodemailer')
 const usersModel = require('../models/users')
+const CryptoJS = require('crypto-js')
 moment.locale('zh-cn')
 
 // mail option
@@ -52,12 +53,14 @@ exports.signUp = function (req, res) {
         errorMsg: 'Sorry, this username has aleady exist.'
       })
     }
+    const secretKey = CryptoJS.MD5(userName + password)
     return usersModel.newUser({
       id: uuidv1(),
       userName,
       password,
       email,
-      createTime: moment().format('x')
+      createTime: moment().format('x'),
+      secretKey
     })
   })
   .then(result => {
