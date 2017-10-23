@@ -2,21 +2,29 @@
 const noteModel = require('../models/note')
 const moment = require('moment')
 const uuidv1 = require('uuid/v1')
+const CryptoJS = require('crypto-js')
+const usersModel = require('../models/users')
 moment.locale('zh-cn')
 
 const listDeal = (req, res, type = 'all') => {
-  noteModel.noteList({
-    userId: req.cookies.userId
+  let secretKey = null
+  usersModel.findUser({
+    id: req.cookies.userId
+  })
+  .then((result) => {
+    secretKey = result[0].secretKey
+    return noteModel.noteList({
+      userId: req.cookies.userId
+    })
   })
   .then(result => {
     const data = result.map(item => {
-      const { id, notebookId, userId, title, content, updateTime } = item
+      const { id, notebookId, title, content, updateTime } = item
       return type === 'all' ? {
         id,
         notebookId,
-        userId,
-        title,
-        content,
+        title: CryptoJS.AES.decrypt(title, secretKey).toString(CryptoJS.enc.Utf8),
+        content: CryptoJS.AES.decrypt(content, secretKey).toString(CryptoJS.enc.Utf8),
         updateTime: moment(updateTime).format('x')
       } : {
         id,
@@ -29,7 +37,7 @@ const listDeal = (req, res, type = 'all') => {
     })
   })
   .catch(err => {
-    return res.status(400).json({
+    return res.status(200).json({
       success: false,
       errorMsg: err
     })
@@ -47,31 +55,37 @@ exports.notesUpdateList = function (req, res) {
 
 // post /note/newNote
 exports.newNote = function (req, res) {
-  noteModel.newNote({
-    id: uuidv1(),
-    notebookId: req.body.notebookId,
-    userId: req.cookies.userId,
-    title: '',
-    content: '',
-    updateTime: moment().format('x')
+  usersModel.findUser({
+    id: req.cookies.userId
   })
   .then(result => {
-    const { id, notebookId, userId, title, content, updateTime } = result._doc
+    const secretKey = result[0].secretKey
+    return noteModel.newNote({
+      id: uuidv1(),
+      notebookId: req.body.notebookId,
+      userId: req.cookies.userId,
+      title: CryptoJS.AES.encrypt('', secretKey),
+      content: CryptoJS.AES.encrypt('', secretKey),
+      updateTime: moment().format('x')
+    })
+  })
+  .then(result => {
+    const { id, notebookId, userId, updateTime } = result._doc
     return res.status(200).json({
       success: true,
       data: {
         id,
         notebookId,
         userId,
-        title,
-        content,
+        title: '',
+        content: '',
         updateTime: moment(updateTime).format('YYYY-MM-DD HH:mm:ss')
       },
       errorMsg: ''
     })
   })
   .catch(err => {
-    return res.status(400).json({
+    return res.status(200).json({
       success: false,
       errorMsg: err
     })
@@ -80,10 +94,25 @@ exports.newNote = function (req, res) {
 
 // post /note/saveNote
 exports.saveNote = function (req, res) {
-  noteModel.updateNote({
-    id: req.body.id,
-    userId: req.cookies.userId
-  }, req.body)
+  let secretKey = null
+  const userId = req.cookies.userId
+  usersModel.findUser({
+    id: userId
+  }).then(result => {
+    secretKey = result[0].secretKey
+    const { id, notebookId, title, content, updateTime } = req.body
+    return noteModel.updateNote({
+      id: req.body.id,
+      userId
+    }, {
+      id,
+      notebookId,
+      userId,
+      title: CryptoJS.AES.encrypt(title, secretKey).toString(),
+      content: CryptoJS.AES.encrypt(content, secretKey).toString(),
+      updateTime
+    })
+  })
   .then(() => {
     res.status(200).json({
       success: true,
@@ -92,7 +121,7 @@ exports.saveNote = function (req, res) {
     })
   })
   .catch(err => {
-    return res.status(400).json({
+    return res.status(200).json({
       success: false,
       errorMsg: err
     })

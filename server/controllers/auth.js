@@ -2,6 +2,7 @@ const moment = require('moment')
 const uuidv1 = require('uuid/v1')
 // const nodemailer = require('nodemailer')
 const usersModel = require('../models/users')
+const CryptoJS = require('crypto-js')
 moment.locale('zh-cn')
 
 // mail option
@@ -52,12 +53,14 @@ exports.signUp = function (req, res) {
         errorMsg: 'Sorry, this username has aleady exist.'
       })
     }
+    const secretKey = CryptoJS.MD5(userName + password)
     return usersModel.newUser({
       id: uuidv1(),
       userName,
       password,
       email,
-      createTime: moment().format('x')
+      createTime: moment().format('x'),
+      secretKey
     })
   })
   .then(result => {
@@ -78,7 +81,7 @@ exports.signUp = function (req, res) {
     })
   })
   .catch(err => {
-    return res.status(400).json({
+    return res.status(200).json({
       success: false,
       errorMsg: err
     })
@@ -115,7 +118,7 @@ exports.login = function (req, res) {
     })
   })
   .catch(err => {
-    return res.status(400).json({
+    return res.status(200).json({
       success: false,
       errorMsg: err
     })
@@ -124,5 +127,5 @@ exports.login = function (req, res) {
 
 // DELETE /auth/logout
 exports.logout = function (req, res) {
-  res.status(200).json({})
+  res.status(200).clearCookie().json({})
 }

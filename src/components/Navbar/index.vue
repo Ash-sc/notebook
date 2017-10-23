@@ -18,7 +18,10 @@
           v-on:close-account-option="closeAccountOptions"
         ></account-setting>
       </span>
-      <span class="fa fa-refresh"></span>
+      <span
+        class="fa fa-refresh"
+        @click="syncNote"
+      ></span>
       <span class="fa fa-bell-o"></span>
       <div class="right-section txt-ellipsis">
         <input type="text" class="btn search-btn" placeholder="Search notes" />
@@ -29,6 +32,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import AccountSetting from './accountSetting'
+import * as noteTypes from '@/store/types/noteTypes'
 
 export default {
 
@@ -45,13 +49,19 @@ export default {
   },
 
   methods: {
+    // 显示账户选项
     accountOptions: function(e) {
       if ([...e.target.classList].indexOf('account-name') >= 0) {
         this.showAccountSetting = true
       }
     },
+    // 关闭账户选项
     closeAccountOptions: function() {
       this.showAccountSetting = false
+    },
+    syncNote: function() {
+      // 笔记同步
+      this.$store.dispatch(noteTypes.GET_NOTE_UPDATE_LIST)
     }
   }
 }

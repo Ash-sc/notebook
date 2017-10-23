@@ -14,7 +14,8 @@ const userSchema = new mongoose.Schema({
   userName: String,
   password: String,
   email: String,
-  createTime: Date
+  createTime: Date,
+  secretKey: String
 })
 // 创建note schema
 const notesSchema = new mongoose.Schema({

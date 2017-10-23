@@ -24,7 +24,7 @@ exports.notebooksList = function (req, res) {
     })
   })
   .catch(err => {
-    return res.status(400).json({
+    return res.status(200).json({
       success: false,
       errorMsg: err
     })
@@ -48,7 +48,7 @@ exports.newNotebook = function (req, res) {
     })
   })
   .catch(err => {
-    return res.status(400).json({
+    return res.status(200).json({
       success: false,
       errorMsg: err
     })

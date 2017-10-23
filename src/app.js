@@ -4,24 +4,31 @@ import Vue from 'vue/dist/vue.js'
 import '@/filters/'
 import router from '@/routes/'
 import App from '@/components/App'
-import accountService from '@/services/accountService'
+// import accountService from '@/services/accountService'
 import store from './store'
 
-// 先检测登录状态再挂载根组件以便控权
-accountService.checkLogin().then(userData => {
-  if (userData) {
-    const data = App.data // data 属性是一个函数
-    App.data = () => ({ ...data(), userData })
-  }
-  // 挂载到 DOM，自此外部就可通过 router.app 访问到根组件
-  // router.start(App, '#app')
-  new Vue({
-    el: '#app',
-    store,
-    router,
-    render: h => h(App)
-  })
+new Vue({
+  el: '#app',
+  store,
+  router,
+  render: h => h(App)
 })
+
+// 先检测登录状态再挂载根组件以便控权
+// accountService.checkLogin().then(userData => {
+//   if (userData) {
+//     const data = App.data // data 属性是一个函数
+//     App.data = () => ({ ...data(), userData })
+//   }
+//   // 挂载到 DOM，自此外部就可通过 router.app 访问到根组件
+//   // router.start(App, '#app')
+//   new Vue({
+//     el: '#app',
+//     store,
+//     router,
+//     render: h => h(App)
+//   })
+// })
 
 if (__DEV__) {
   console.info('[当前环境] 开发环境')
