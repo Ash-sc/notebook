@@ -1,7 +1,8 @@
 import * as types from '../types/noteTypes'
 import noteService from '@/services/noteService'
 import moment from 'moment'
-// import findIndex from 'lodash/findIndex'
+import find from 'lodash/find'
+import findIndex from 'lodash/findIndex'
 
 // initial state
 // shape: [{ id, quantity }]
@@ -36,12 +37,30 @@ const actions = {
     noteService
     .fetchUpdateList()
     .then((data) => {
-      if (data && data.length &&
-        data[0].id !== state.noteUpdateList[0].id ||
-        data[0].updateTime !== state.noteUpdateList[0].updateTime
-      ) {
-        this.dispatch(types.GET_NOTE_LIST)
+      const needFresh = []
+      for (let i = 0; i < state.noteUpdateList.length; i += 1) {
+        const info = find(data, {id: state.noteUpdateList[i].id})
+        if (info && info.updateTime >= state.noteUpdateList[i].updateTime) {
+          break
+        } else {
+          needFresh.push(
+            noteService
+            .saveNote(state.notesList[i])
+          )
+        }
       }
+      Promise.all(needFresh).then(results => {
+        this.dispatch('newNotification', {
+          type: 'success',
+          content: 'Sync Note success'
+        })
+        this.dispatch(types.GET_NOTE_LIST)
+      }, () => {
+        this.dispatch('newNotification', {
+          type: 'error',
+          content: 'Sync Note fail, please do it later'
+        })
+      })
     })
   },
 
@@ -94,6 +113,14 @@ const mutations = {
       noteInfo,
       { updateTime: moment().format('x')}
     )
+    const { id, updateTime } = state.currentNote
+    const index = findIndex(state.noteUpdateList, { id })
+    state.noteUpdateList.splice(index, 1)
+    state.noteUpdateList.splice(0, 0, { id, updateTime })
+    localStorage.noteUpdateList = JSON.stringify(state.noteUpdateList)
+    state.notesList.splice(index, 1)
+    state.notesList.splice(0, 0, { ...state.currentNote })
+    localStorage.notesList = JSON.stringify(state.notesList)
   },
   // 切换当前显示的笔记
   [types.CHANGE_ACTIVE_NOTE](state, { noteInfo }) {
