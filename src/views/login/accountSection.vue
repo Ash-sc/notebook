@@ -26,7 +26,7 @@
         />
         <span class="error-tips">{{errorMsg.email}}</span>
         <input
-          type="password"
+          type="text"
           class="form-input btn"
           v-model="formData.password" maxlength="20"
           placeholder="password (8-20 bits)"

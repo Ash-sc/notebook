@@ -124,5 +124,5 @@ exports.login = function (req, res) {
 
 // DELETE /auth/logout
 exports.logout = function (req, res) {
-  res.status(200).json({})
+  res.status(200).clearCookie().json({})
 }
