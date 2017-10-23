@@ -19,13 +19,15 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
   const notLogin = isEmpty(JSON.parse(localStorage.accountInfo || '{}'))
   if (to.path !== '/login' && notLogin) {
+    console.log(router, 222)
     router.push('/login')
-    return
+    next(false)
   } else if (!notLogin && to.path === '/login') {
     router.push(from.path)
-    return
+    next(false)
+  } else {
+    next()
   }
-  next()
 })
 
 // router.map(Object.values(routesMap))

@@ -15,6 +15,7 @@
       class="log-out-p"
       @click="logout"
     >Log Out</p>
+    <div class="account-setting-bg" @click="closeOption"></div>
   </div>
 </template>
 
@@ -28,8 +29,11 @@ export default {
     })
   },
   methods: {
-    logout: function() {
+    closeOption: function() {
       this.$emit('close-account-option')
+    },
+    logout: function() {
+      this.closeOption()
       localStorage.clear()
       this.$router.push('/login')
     }

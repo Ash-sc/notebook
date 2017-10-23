@@ -2,8 +2,8 @@
   <nav class="navbar navbar-default">
     <h1 class="page-title">Notebooks</h1>
     <div class="top-function-bar">
-      <span class="fa fa-angle-left"></span>
-      <span class="fa fa-angle-right"></span>
+      <span class="fa fa-angle-left" style="display: none;"></span>
+      <span class="fa fa-angle-right" style="display: none;"></span>
       <span
         class="fa fa-user-o"
         @click="accountOptions"
