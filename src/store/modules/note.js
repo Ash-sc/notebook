@@ -89,6 +89,17 @@ const actions = {
     }, () => {
       console.error('new note error!')
     })
+  },
+
+  // 删除笔记
+  [types.DELETE_NOTE]({ commit, state }, noteId) {
+    noteService
+    .deleteNote(noteId)
+    .then(() => {
+      this.dispatch(types.GET_NOTE_LIST)
+    }, () => {
+      console.error('delete note fail!')
+    })
   }
 }
 

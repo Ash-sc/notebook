@@ -6,7 +6,7 @@ class NotebookService {
   /**
    * 获取笔记列表
    */
-  fetchList () {
+  fetchList() {
     return xhr({
       url: '/note/notesList'
     })
@@ -15,7 +15,7 @@ class NotebookService {
   /**
    * 获取笔记更新时间列表
    */
-  fetchUpdateList () {
+  fetchUpdateList() {
     return xhr({
       url: '/note/notesUpdateList'
     })
@@ -26,7 +26,7 @@ class NotebookService {
   * @param   {String} data.noteTitle
   * @param   {String} data.noteContent
   */
-  newNotebook (data) {
+  newNotebook(data) {
     return xhr({
       url: '/note/newNote',
       method: 'post',
@@ -37,7 +37,7 @@ class NotebookService {
   /**
   * 保存笔记
   */
-  saveNote (data) {
+  saveNote(data) {
     return xhr({
       url: '/note/saveNote',
       method: 'post',
@@ -48,11 +48,22 @@ class NotebookService {
   /**
   * 新建笔记
   */
-  newNote (data) {
+  newNote(data) {
     return xhr({
       url: '/note/newNote',
       method: 'post',
       body: data
+    })
+  }
+
+  /**
+  * 删除笔记
+  */
+  deleteNote(id) {
+    return xhr({
+      url: '/note/newNote',
+      method: 'post',
+      body: { id }
     })
   }
 

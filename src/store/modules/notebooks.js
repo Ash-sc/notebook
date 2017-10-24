@@ -1,4 +1,5 @@
 import * as types from '../types/notebooksTypes'
+import * as noteTypes from '../types/noteTypes'
 import notebookService from '@/services/notebookService'
 
 // initial state
@@ -42,6 +43,7 @@ const actions = {
     .deleteNotebook(notebookId)
     .then(() => {
       this.dispatch(types.GET_NOTEBOOKS_LIST)
+      this.dispatch(noteTypes.GET_NOTE_UPDATE_LIST)
     })
   }
 }
