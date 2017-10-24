@@ -75,7 +75,7 @@ const actions = {
       })
       this.dispatch(types.GET_NOTE_LIST)
     }, () => {
-      console.log('save note error!')
+      console.error('save note error!')
     })
   },
 
@@ -84,11 +84,10 @@ const actions = {
     noteService
     .newNote(noteInfo)
     .then((data) => {
-      console.log('new note success!')
       commit(types.UPDATE_CURRENT_NOTE, { noteInfo: data })
       this.dispatch(types.GET_NOTE_LIST)
     }, () => {
-      console.log('new note error!')
+      console.error('new note error!')
     })
   }
 }

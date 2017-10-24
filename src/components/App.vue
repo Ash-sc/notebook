@@ -4,6 +4,7 @@
   >
     <req-loading></req-loading>
     <notification></notification>
+    <confirm-popup></confirm-popup>
     <navbar></navbar>
   
     <div class="main-content">
@@ -25,12 +26,20 @@ import * as notebooksTypes from '@/store/types/notebooksTypes'
 import * as noteTypes from '@/store/types/noteTypes'
 import ReqLoading from '@/components/ReqLoading/'
 import Notification from '@/components/Notification/'
+import ConfirmPopup from '@/components/Popup/Confirm/'
 
 export default {
   // 路由会自动将该组件挂载到 #app 上
   // el: () => '#app',
   
-  components: { Navbar, Sidebar, Breadcrumb, ReqLoading, Notification },
+  components: {
+    Navbar,
+    Sidebar,
+    Breadcrumb,
+    ReqLoading,
+    Notification,
+    ConfirmPopup
+  },
 
   // 注意：顶级变量必须设置默认值方能引入 observer
   data: () => ({

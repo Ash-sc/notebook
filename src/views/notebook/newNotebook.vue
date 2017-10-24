@@ -40,10 +40,10 @@
           @click="closeDialog"
         >Cancel</button>
         <button
-        class="btn"
-        :class="{ disable: !notebookName}"
-        @click="newNotebook"
-      >Create</button>
+          class="btn"
+          :class="{ disable: !notebookName}"
+          @click="newNotebook"
+        >Create</button>
       </div>
       
     </div>

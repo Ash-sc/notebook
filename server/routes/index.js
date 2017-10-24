@@ -28,6 +28,10 @@ module.exports = [{
   method: 'POST',
   handler: notebookCtrls.newNotebook
 }, {
+  path: '/notebook/deleteNotebook',
+  method: 'POST',
+  handler: notebookCtrls.deleteNotebook
+}, {
   path: '/auth/checkLogin',
   method: 'GET',
   handler: authCtrls.checkLogin

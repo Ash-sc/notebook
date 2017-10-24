@@ -24,6 +24,7 @@ const actions = {
   //     () => commit(types.CHECKOUT_FAILURE, { savedCartItems })
   //   )
   // }
+  // 获取笔记本列表
   [types.GET_NOTEBOOKS_LIST]({ commit, state }) {
     // commit(types.GET_NOTEBOOKS_LIST_REQUEST)
     notebookService
@@ -33,6 +34,14 @@ const actions = {
       localStorage.notebooksList = JSON.stringify(data)
     }, () => {
       commit(types.GET_NOTEBOOKS_LIST_FAILURE)
+    })
+  },
+
+  [types.DELETE_NOTEBOOK]({ commit, state }, notebookId) {
+    notebookService
+    .deleteNotebook(notebookId)
+    .then(() => {
+      this.dispatch(types.GET_NOTEBOOKS_LIST)
     })
   }
 }

@@ -45,7 +45,18 @@ const listDeal = (req, res, type = 'all') => {
 }
 // GET /note/notesList
 exports.notesList = function (req, res) {
-  listDeal(req, res)
+  var _callback = req.query.cb
+  if (_callback) { // 测试jsonp接口用
+    const _data = {
+      success: Math.random() > 0.6,
+      validateKey: 'adasfgs-afgd11-1asdag21-gjjud-331bfay'
+    }
+    res.status(200)
+    res.type('text/javascript')
+    res.send(_callback + '(' + JSON.stringify(_data) + ')')
+  } else {
+    listDeal(req, res)
+  }
 }
 
 // GET /note/notesUpdateList
