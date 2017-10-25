@@ -24,3 +24,15 @@ exports.newNotebook = function(data) {
     })
   })
 }
+
+exports.deleteNotebook = function(data) {
+  return new Promise((resolve, reject) => {
+    notebooksModel.deleteOne(data, (err) => {
+      if (err) {
+        reject('Server error, please do it later.')
+      } else {
+        return resolve({})
+      }
+    })
+  })
+}

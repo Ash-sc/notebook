@@ -6,7 +6,7 @@ class NotebookService {
   /**
    * 获取笔记本列表
    */
-  fetchList () {
+  fetchList() {
     return xhr({
       url: '/notebook/notebooksList'
     })
@@ -17,11 +17,23 @@ class NotebookService {
   * @param   {String} data.notebookName
   * @param   {String} data.notebookType
   */
-  newNotebook (data) {
+  newNotebook(data) {
     return xhr({
       url: '/notebook/newNotebook',
       method: 'post',
       body: data
+    })
+  }
+
+  /**
+   * 删除笔记本
+   * @param   {String} notebookId
+   */
+  deleteNotebook(notebookId) {
+    return xhr({
+      url: '/notebook/deleteNotebook',
+      method: 'post',
+      body: { notebookId }
     })
   }
 

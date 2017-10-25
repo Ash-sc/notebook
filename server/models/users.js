@@ -25,4 +25,3 @@ exports.newUser = function(data = {}) {
     })
   })
 }
-

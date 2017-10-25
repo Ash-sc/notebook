@@ -58,12 +58,17 @@ export default {
     // 新建笔记
     addNewNote: function() {
       const notebookId = this.$route.params.notebookId.replace(/^all$/, '')
-      if (!this.notebooksList.length && !notebookId) {
-        // todo: change alert to notification
+      if (!this.notebooksList.length) {
         this.$store.dispatch('newNotification', {
-        type: 'error',
-        content: 'Sorry, please create a notebook first.'
-      })
+          type: 'error',
+          content: 'Sorry, please create a notebook first.'
+        })
+        return
+      } else if (notebookId && !find(this.notebooksList, { id: notebookId })) {
+        this.$store.dispatch('newNotification', {
+          type: 'error',
+          content: 'Error notebookId.'
+        })
         return
       }
       const noteInfo = {
@@ -83,9 +88,9 @@ export default {
           return item.notebookId === currentNoteBookId
         }) : this.notesList
 
-      if (!this.$store.state.note.currentNote.id && arr.length) {
+      if (!this.$store.state.note.currentNote.id) {
         this.$store.commit(types.CHANGE_ACTIVE_NOTE, {
-          noteInfo: arr[0]
+          noteInfo: arr.length ? arr[0] : {}
         })
       }
       return arr

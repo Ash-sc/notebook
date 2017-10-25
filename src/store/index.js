@@ -5,6 +5,7 @@ import * as getters from './getters'
 import account from './modules/account'
 import loading from './modules/loading'
 import notification from './modules/notification'
+import popup from './modules/popup'
 import notebooks from './modules/notebooks'
 import note from './modules/note'
 // import createLogger from '../../../src/plugins/logger'
@@ -17,9 +18,10 @@ export default new Vuex.Store({
   actions,
   getters,
   modules: {
-    account,
     loading,
     notification,
+    popup,
+    account,
     notebooks,
     note
   },
