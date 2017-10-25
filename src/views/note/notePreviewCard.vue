@@ -51,10 +51,13 @@ export default {
 
     // 删除笔记req
     deleteNoteReq: function() {
+      if (this.active) {
+        this.$store.commit(types.CHANGE_ACTIVE_NOTE, { noteInfo: {} })
+      }
       this.$store.dispatch(types.DELETE_NOTE, this.noteInfo.id)
     },
 
-    // 删除笔记
+    // 删除笔记弹框
     deleteConfirm: function() {
       this.$store.commit(popupTypes.NEW_POPUP, {
         title: 'Delete Confirm',

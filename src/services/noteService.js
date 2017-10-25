@@ -61,7 +61,7 @@ class NotebookService {
   */
   deleteNote(id) {
     return xhr({
-      url: '/note/newNote',
+      url: '/note/deleteNote',
       method: 'post',
       body: { id }
     })

@@ -44,7 +44,7 @@ const listDeal = (req, res, type = 'all') => {
   })
 }
 // GET /note/notesList
-exports.notesList = function (req, res) {
+exports.notesList = function(req, res) {
   var _callback = req.query.cb
   if (_callback) { // 测试jsonp接口用
     const _data = {
@@ -60,12 +60,12 @@ exports.notesList = function (req, res) {
 }
 
 // GET /note/notesUpdateList
-exports.notesUpdateList = function (req, res) {
+exports.notesUpdateList = function(req, res) {
   listDeal(req, res, 'update')
 }
 
 // post /note/newNote
-exports.newNote = function (req, res) {
+exports.newNote = function(req, res) {
   usersModel.findUser({
     id: req.cookies.userId
   })
@@ -104,12 +104,13 @@ exports.newNote = function (req, res) {
 }
 
 // post /note/saveNote
-exports.saveNote = function (req, res) {
+exports.saveNote = function(req, res) {
   let secretKey = null
   const userId = req.cookies.userId
   usersModel.findUser({
     id: userId
-  }).then(result => {
+  })
+  .then(result => {
     secretKey = result[0].secretKey
     const { id, notebookId, title, content, updateTime } = req.body
     return noteModel.updateNote({
@@ -128,6 +129,26 @@ exports.saveNote = function (req, res) {
     res.status(200).json({
       success: true,
       data: {},
+      errorMsg: ''
+    })
+  })
+  .catch(err => {
+    return res.status(200).json({
+      success: false,
+      errorMsg: err
+    })
+  })
+}
+
+// post /note/deleteNote
+exports.deleteNote = function(req, res) {
+  const id = req.body.id
+  noteModel.deleteNote({
+    id
+  })
+  .then(() => {
+    return res.status(200).json({
+      success: true,
       errorMsg: ''
     })
   })

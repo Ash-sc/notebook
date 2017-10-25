@@ -16,6 +16,10 @@ module.exports = [{
   method: 'POST',
   handler: noteCtrls.newNote
 }, {
+  path: '/note/deleteNote',
+  method: 'POST',
+  handler: noteCtrls.deleteNote
+}, {
   path: '/note/saveNote',
   method: 'POST',
   handler: noteCtrls.saveNote
