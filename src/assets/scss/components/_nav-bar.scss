@@ -30,7 +30,7 @@ nav.navbar {
       cursor: pointer;
     }
 
-    .fa {
+    .fa:not(.clear-key-words) {
       font-size: 25px;
       width: 20px;
       text-align: center;
@@ -57,13 +57,6 @@ nav.navbar {
 
       .search-btn {
         font-family: $body-font;
-        text-align: center;
-        cursor: inherit;
-        width: 300px;
-      }
-
-      .search-btn {
-        vertical-align: top;
       }
 
     }

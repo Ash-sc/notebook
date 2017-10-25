@@ -5,6 +5,8 @@ body {
   font-size: 16px;
   color: #494949;
   font-family: $body-font;
+
+  min-width: 1000px;
   
   * {
     outline: none!important;
