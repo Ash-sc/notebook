@@ -1,12 +1,12 @@
 .confirm-popup-bg {
-  // display: none;
   position: fixed;
   width: 100%;
   height: 100%;
-  top: 0;
+  top: -100%;
   left: 0;
   text-align: center;
-  z-index: 1024;
+  z-index: 1025;
+  transition: top .2s linear;
 
   .confirm-popup-body {
     padding: 15px 20px 0 20px;
@@ -54,4 +54,8 @@
 
   }
   
+}
+
+.confirm-popup-show {
+  top: 0;
 }

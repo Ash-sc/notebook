@@ -1,5 +1,8 @@
 <template>
-  <div class="confirm-popup-bg" v-show="$store.state.popup.show">
+  <div
+    class="confirm-popup-bg"
+    :class="{ 'confirm-popup-show': $store.state.popup.show }"
+  >
     <div class="confirm-popup-body">
       <h3 class="popup-title txt-ellipsis">
         {{ $store.state.popup.option.title }}
