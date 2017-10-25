@@ -23,8 +23,8 @@
         @click="syncNote"
       ></span>
       <span class="fa fa-bell-o"></span>
-      <div class="right-section txt-ellipsis">
-        <input type="text" class="btn search-btn" placeholder="Search notes" />
+      <div class="right-section">
+        <search></search>
       </div>
     </div>
   </nav>
@@ -32,11 +32,12 @@
 <script>
 import { mapGetters } from 'vuex'
 import AccountSetting from './accountSetting'
+import Search from '@/components/Search/'
 import * as noteTypes from '@/store/types/noteTypes'
 
 export default {
 
-  components: { AccountSetting },
+  components: { AccountSetting, Search },
 
   data: () => ({
     showAccountSetting: false

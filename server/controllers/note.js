@@ -5,6 +5,8 @@ const uuidv1 = require('uuid/v1')
 const CryptoJS = require('crypto-js')
 const usersModel = require('../models/users')
 moment.locale('zh-cn')
+const fs = require('fs')
+const path = require('path')
 
 const listDeal = (req, res, type = 'all') => {
   let secretKey = null
