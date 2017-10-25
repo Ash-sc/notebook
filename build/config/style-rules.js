@@ -16,7 +16,8 @@ function ruleGen(ext, isForVueLoader) {
   // 开发环境下直接内嵌 CSS 以支持热替换
   if (ENV.__DEV__) return ['style'].concat(useLoaders).join('!');
   // 生产环境下分离出 CSS 文件
-  return extract('style', useLoaders.join('!'));
+  // return extract('style', useLoaders.join('!'));
+  return ['style'].concat(useLoaders).join('!');
 }
 
 function styleRulesGen(isForVueLoader) {
