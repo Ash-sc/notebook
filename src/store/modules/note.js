@@ -28,7 +28,7 @@ const actions = {
     .then((data) => {
       commit(types.GET_NOTE_LIST_SUCCESS, { data })
     }, () => {
-      commit(types.GET_NOTE_LIST_FAILURE)
+      commit(types.GET_NOTE_LIST_FAILURE, { data: [] })
     })
   },
 
