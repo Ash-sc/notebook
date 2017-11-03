@@ -16,13 +16,17 @@
       @click="logout"
     >Log Out</p>
     <div class="account-setting-bg" @click="closeOption"></div>
+    <account-info></account-info>
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
+import AccountInfo from './AccountInfo/'
 
 export default {
+  components: { AccountInfo },
+
   computed: {
     ...mapGetters({
       accountInfo: 'accountInfo'
