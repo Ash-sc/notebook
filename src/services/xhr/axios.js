@@ -32,6 +32,7 @@ const xhr = ({ method = 'get', url, body = null }) => {
     }).catch(err => {
       store.commit(loadingType.LOADING_CHANGE, { path: rootPath, loading: false })
       console.log('request error: %s', err)
+      console.log(err)
     })
   })
 

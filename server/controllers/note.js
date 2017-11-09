@@ -1,3 +1,5 @@
+const express = require('express')
+const router = express.Router()
 // mongoDB
 const noteModel = require('../models/note')
 const moment = require('moment')
@@ -44,7 +46,7 @@ const listDeal = (req, res, type = 'all') => {
   })
 }
 // GET /note/notesList
-exports.notesList = function(req, res) {
+router.get('/notesList', (req, res) => {
   if (req.query.keywords) {
     setTimeout(function() {
       res.status(200).json({
@@ -71,15 +73,15 @@ exports.notesList = function(req, res) {
   } else {
     listDeal(req, res)
   }
-}
+})
 
 // GET /note/notesUpdateList
-exports.notesUpdateList = function(req, res) {
+router.get('/notesUpdateList', (req, res) => {
   listDeal(req, res, 'update')
-}
+})
 
 // post /note/newNote
-exports.newNote = function(req, res) {
+router.post('/newNote', (req, res) => {
   usersModel.findUser({
     id: req.cookies.userId
   })
@@ -115,10 +117,10 @@ exports.newNote = function(req, res) {
       errorMsg: err
     })
   })
-}
+})
 
 // post /note/saveNote
-exports.saveNote = function(req, res) {
+router.post('/saveNote', (req, res) => {
   let secretKey = null
   const userId = req.cookies.userId
   usersModel.findUser({
@@ -152,10 +154,10 @@ exports.saveNote = function(req, res) {
       errorMsg: err
     })
   })
-}
+})
 
 // post /note/deleteNote
-exports.deleteNote = function(req, res) {
+router.post('/deleteNote', (req, res) => {
   const id = req.body.id
   noteModel.deleteNote({
     id
@@ -172,4 +174,6 @@ exports.deleteNote = function(req, res) {
       errorMsg: err
     })
   })
-}
+})
+
+module.exports = router

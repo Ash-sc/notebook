@@ -1,3 +1,5 @@
+const express = require('express')
+const router = express.Router()
 // mongoDB
 const notebookModel = require('../models/notebook')
 const noteModel = require('../models/note')
@@ -6,7 +8,7 @@ const uuidv1 = require('uuid/v1')
 moment.locale('zh-cn')
 
 // GET /notebook/notebooksList
-exports.notebooksList = function (req, res) {
+router.get('/notebooksList', (req, res) => {
   notebookModel.getList({
     userId: req.cookies.userId
   })
@@ -30,10 +32,10 @@ exports.notebooksList = function (req, res) {
       errorMsg: err
     })
   })
-}
+})
 
 // POST /notebook/newNotebook
-exports.newNotebook = function (req, res) {
+router.post('/newNotebook', (req, res) => {
   notebookModel.newNotebook({
     id: uuidv1(),
     userId: req.cookies.userId,
@@ -55,10 +57,10 @@ exports.newNotebook = function (req, res) {
       errorMsg: err
     })
   })
-}
+})
 
 // POST /notebook/deleteNotebook
-exports.deleteNotebook = function (req, res) {
+router.post('/deleteNotebook', (req, res) => {
   const notebookId = req.body.notebookId
   notebookModel.deleteNotebook({
     id: notebookId
@@ -80,4 +82,6 @@ exports.deleteNotebook = function (req, res) {
       errorMsg: err
     })
   })
-}
+})
+
+module.exports = router

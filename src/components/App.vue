@@ -47,6 +47,9 @@ export default {
   }),
 
   created: function() {
+    if (!localStorage.accountInfo) {
+      return false
+    }
     // 获取笔记本列表
     this.$store.dispatch(notebooksTypes.GET_NOTEBOOKS_LIST)
 

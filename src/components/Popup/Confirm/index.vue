@@ -45,10 +45,6 @@ export default {
         type: 'success'
       })
     }
-  },
-
-  created: function() {
-    console.log(this.$store)
   }
 
 }
