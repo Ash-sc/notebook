@@ -3,7 +3,7 @@
   width: 100%;
   height: 100%;
   top: -600px;
-  left: 0;
+  left: 100%;
   z-index: 1025;
   text-align: center;
   transition: top .2s linear;
@@ -57,5 +57,6 @@
 }
 
 .confirm-popup-show {
+  left: 0;
   top: 0;
 }

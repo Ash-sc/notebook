@@ -1,3 +1,5 @@
+const express = require('express')
+const router = express.Router()
 const moment = require('moment')
 const uuidv1 = require('uuid/v1')
 // const nodemailer = require('nodemailer')
@@ -33,15 +35,15 @@ moment.locale('zh-cn')
 // }
 
 // GET /auth/checkLogin
-exports.checkLogin = function (req, res) {
+router.get('/checkLogin', (req, res) => {
   res.status(200).json({
     success: true,
     data: {}
   })
-}
+})
 
 // POST /auth/signUp
-exports.signUp = function (req, res) {
+router.post('/signUp', (req, res) => {
   const userName = (req.body.userName || '').trim()
   const password = (req.body.password || '').trim()
   const email = (req.body.email || '').trim()
@@ -86,10 +88,10 @@ exports.signUp = function (req, res) {
       errorMsg: err
     })
   })
-}
+})
 
 // POST /auth/login
-exports.login = function (req, res) {
+router.post('/login', (req, res) => {
   const userName = (req.body.userName || '').trim()
   const password = (req.body.password || '').trim()
   usersModel.findUser({
@@ -123,9 +125,17 @@ exports.login = function (req, res) {
       errorMsg: err
     })
   })
-}
+})
 
-// DELETE /auth/logout
-exports.logout = function (req, res) {
-  res.status(200).clearCookie().json({})
-}
+// POST /auth/logout
+router.post('/logout', (req, res) => {
+  res
+  .status(200)
+  .cookie('userId', '', { httpOnly: true })
+  .json({
+    success: true,
+    data: {}
+  })
+})
+
+module.exports = router

@@ -61,6 +61,16 @@ const actions = {
       Notification.call(this, 'error', err.errorMsg)
       commit(types.CHANGE_ACCOUNT_INFO, { data: {} })
     })
+  },
+
+  // 用户登出
+  [types.USER_LOG_OUT]({ commit, state }) {
+    accountService
+      .logout()
+      .then(() => {
+        localStorage.clear()
+        router.push('/login')
+      })
   }
 }
 

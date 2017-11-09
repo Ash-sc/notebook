@@ -23,6 +23,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import AccountInfo from './AccountInfo/'
+import * as types from '@/store/types/accountTypes'
 
 export default {
   components: { AccountInfo },
@@ -38,8 +39,7 @@ export default {
     },
     logout: function() {
       this.closeOption()
-      localStorage.clear()
-      this.$router.push('/login')
+      this.$store.dispatch(types.USER_LOG_OUT)
     }
   }
 }
