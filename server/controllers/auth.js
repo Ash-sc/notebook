@@ -55,7 +55,7 @@ router.post('/signUp', (req, res) => {
         errorMsg: 'Sorry, this username has aleady exist.'
       })
     }
-    const secretKey = CryptoJS.MD5(userName + password)
+    const secretKey = CryptoJS.MD5(userName + password + Math.random())
     return usersModel.newUser({
       id: uuidv1(),
       userName,
