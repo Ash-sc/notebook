@@ -47,26 +47,32 @@ router.post('/signUp', (req, res) => {
   const userName = (req.body.userName || '').trim()
   const password = (req.body.password || '').trim()
   const email = (req.body.email || '').trim()
-  usersModel.findUser({ userName })
+  usersModel.findUser({
+    $or: [{ userName }, { email }]
+  })
   .then(result => {
     if (result.length) {
       return res.status(200).json({
         success: false,
-        errorMsg: 'Sorry, this username has aleady exist.'
+        errorMsg: 'Sorry, this username or email has aleady exist.'
       })
     }
     const secretKey = CryptoJS.MD5(userName + password + Math.random())
+    const verifyCode = CryptoJS.MD5(userName + new Date().getTime())
     return usersModel.newUser({
       id: uuidv1(),
       userName,
       password,
       email,
       createTime: moment().format('x'),
-      secretKey
+      secretKey,
+      verifyCode,
+      hasVerified: false,
+      freezen: false
     })
   })
   .then(result => {
-    if (result.success === false) return
+    if (!result.success) return
     const data = result._doc
     // sendMail(userName)
     return res
@@ -96,7 +102,8 @@ router.post('/login', (req, res) => {
   const password = (req.body.password || '').trim()
   usersModel.findUser({
     userName,
-    password
+    password,
+    freezen: false
   })
   .then(result => {
     if (!result.length) {
