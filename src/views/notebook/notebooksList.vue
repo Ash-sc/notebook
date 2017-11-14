@@ -23,6 +23,9 @@
         </span>
       </div>
     </div>
+    <vue-popup ref="deleteNotebookDialog" :options="{ width: 505 }">
+      <confirm :option="deleteNotebookOpt" v-on:confirm-event="deleteNotebookReq"></confirm>
+    </vue-popup>
   </div>
 </template>
 <script>
@@ -31,7 +34,6 @@ import findIndex from 'lodash/findIndex'
 import { mapGetters } from 'vuex'
 import * as noteTypes from '@/store/types/noteTypes'
 import * as notebooksTypes from '@/store/types/notebooksTypes'
-import * as popupTypes from '@/store/types/popupTypes'
 
 export default {
 
@@ -49,7 +51,14 @@ export default {
 
   data: () =>({
     hoverNotebookId: '',
-    tobeDelId: ''
+    tobeDelId: '',
+    deleteNotebookOpt: {
+      title: 'Delete Confirm',
+      tips: [
+        'Delete Notebook will also delete the notes belongs to this notebook, and it would be unrecoverable.',
+        'Delete anyway ?'
+      ]
+    }
   }),
 
   computed: {
@@ -106,21 +115,15 @@ export default {
     // 删除笔记本二次确认
     deleteConfirm(info) {
       this.tobeDelId = info.id
-      this.$store.commit(popupTypes.NEW_POPUP, {
-        title: 'Delete Confirm',
-        tips: [
-          'Delete Notebook will also delete the notes belongs to this notebook, and it would be unrecoverable.',
-          'Delete anyway ?'
-        ],
-        callback: this.deleteNotebookReq
-      })
+      this.$refs.deleteNotebookDialog.show()
     },
 
     // 删除笔记请求部分
     deleteNotebookReq() {
+      this.$refs.deleteNotebookDialog.hide()
       this.$store.dispatch(notebooksTypes.DELETE_NOTEBOOK, this.tobeDelId)
     }
   }
-  
+
 }
 </script>

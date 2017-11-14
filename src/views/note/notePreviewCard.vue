@@ -16,11 +16,13 @@
         @click="deleteConfirm"
       ></span>
     </span>
+    <vue-popup ref="deleteNoteDialog" :options="{ width: 505 }">
+      <confirm :option="deleteNoteOpt" v-on:confirm-event="deleteNoteReq"></confirm>
+    </vue-popup>
   </div>
 </template>
 <script>
 import * as types from '@/store/types/noteTypes'
-import * as popupTypes from '@/store/types/popupTypes'
 
 export default {
   props: {
@@ -35,7 +37,14 @@ export default {
   },
 
   data: () => ({
-    showDeleteIcon: false
+    showDeleteIcon: false,
+    deleteNoteOpt: {
+      title: 'Delete Confirm',
+      tips: [
+        'Delete this note ? it would be unrecoverable.',
+        'Are you sure ?'
+      ]
+    }
   }),
 
   methods: {
@@ -51,6 +60,7 @@ export default {
 
     // 删除笔记req
     deleteNoteReq: function() {
+      this.$refs.deleteNoteDialog.hide()
       if (this.active) {
         this.$store.commit(types.CHANGE_ACTIVE_NOTE, { noteInfo: {} })
       }
@@ -59,14 +69,7 @@ export default {
 
     // 删除笔记弹框
     deleteConfirm: function() {
-      this.$store.commit(popupTypes.NEW_POPUP, {
-        title: 'Delete Confirm',
-        tips: [
-          'Delete this note ? it would be unrecoverable.',
-          'Are you sure ?'
-        ],
-        callback: this.deleteNoteReq
-      })
+      this.$refs.deleteNoteDialog.show()
     }
   }
 }

@@ -14,9 +14,11 @@
       <div class="popup-footer">
         <button
           class="btn"
+          @click="closeAccountInfo"
         >Cancel</button>
         <button
           class="btn confirm-btn"
+          @click="closeAccountInfo"
         >Confirm</button>
       </div>
     </div>
@@ -26,6 +28,11 @@
 <script>
 
 export default {
+  methods: {
+    closeAccountInfo: function() {
+      this.$parent.hide()
+    }
+  }
 }
 </script>
 
