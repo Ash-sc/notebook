@@ -10,13 +10,15 @@
         class="txt-ellipsis account-name-span"
       >{{accountInfo.userName}}</span>
     </div>
-    <p class="account-info-p">Account Info...</p>
+    <p class="account-info-p" @click="showAccountInfo">Account Info...</p>
     <p
       class="log-out-p"
       @click="logout"
     >Log Out</p>
     <div class="account-setting-bg" @click="closeOption"></div>
-    <account-info></account-info>
+    <vue-popup ref="accountInfoDialog">
+      <account-info></account-info>
+    </vue-popup>
   </div>
 </template>
 
@@ -37,6 +39,11 @@ export default {
     closeOption: function() {
       this.$emit('close-account-option')
     },
+
+    showAccountInfo: function () {
+      this.$refs.accountInfoDialog.show()
+    },
+
     logout: function() {
       this.closeOption()
       this.$store.dispatch(types.USER_LOG_OUT)

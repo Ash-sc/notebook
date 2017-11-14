@@ -14,7 +14,7 @@
       >
         {{accountInfo.userName}}
         <account-setting
-          v-show="showAccountSetting"
+          v-if="showAccountSetting"
           v-on:close-account-option="closeAccountOptions"
         ></account-setting>
       </span>

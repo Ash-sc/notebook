@@ -6,6 +6,8 @@ import router from '@/routes/'
 import App from '@/components/App'
 // import accountService from '@/services/accountService'
 import store from './store'
+import Popup from 'vue-simple-popup'
+import Confirm from '@/components/Confirm/'
 
 new Vue({
   el: '#app',
@@ -13,6 +15,9 @@ new Vue({
   router,
   render: h => h(App)
 })
+
+Vue.use(Popup)
+Vue.use(Confirm)
 
 // 先检测登录状态再挂载根组件以便控权
 // accountService.checkLogin().then(userData => {

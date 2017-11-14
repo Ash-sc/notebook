@@ -14,6 +14,9 @@
       :show="newNotebook"
       v-on:close-dialog="addNewNotebook"
     ></new-notebook><!-- 新建笔记本弹框 -->
+    <vue-popup ref="newNotebookDialog">
+      <new-notebook></new-notebook>
+    </vue-popup>
   </div>
 </template>
 
@@ -21,7 +24,6 @@
 import FunctionBar from '@/views/notebook/functionBar'
 import NotebooksList from '@/views/notebook/notebooksList'
 import NewNotebook from './newNotebook'
-import * as types from '@/store/types/notebooksTypes'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -39,11 +41,9 @@ export default {
   },
 
   methods: {
-    // 展开、关闭新建笔记本弹框 type=['true', 'cancel', 'create']
-    addNewNotebook: function(type) {
-      this.newNotebook = type === 'true'
-      // 若为创建后关闭，则刷新列表
-      type === 'create' && this.$store.dispatch(types.GET_NOTEBOOKS_LIST)
+    // 展开新建笔记本弹框
+    addNewNotebook: function() {
+      this.$refs.newNotebookDialog.show()
     }
   }
 
