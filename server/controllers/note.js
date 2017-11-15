@@ -47,32 +47,7 @@ const listDeal = (req, res, type = 'all') => {
 }
 // GET /note/notesList
 router.get('/notesList', (req, res) => {
-  if (req.query.keywords) {
-    setTimeout(function() {
-      res.status(200).json({
-        keyWords: req.query.keywords,
-        resultList: [
-          {
-            path: '/1/2/3/4/5',
-            title: 'iOS平台',
-            content: '受iOS系统限///制，个推SDK服务在iOS平台上无法长期后台运行。当应用在前台运行时，个推SDK服务可以正常运行，可以实时接受服务端的推送消息；当应用在后台期间，个推服务端会动借助Apple Push Notification Server(APNs)实现消息推送，用户启动应用后，个推SDK服务可以重新接受在应用停止期间服务端推送的离线消息。第三方应用开发者需要特别关注这个处理逻辑。'
-          },
-          {
-            path: '/1/2/3/4/5',
-            title: 'iOS平台',
-            content: '受iOS系统限制，个推SDK服务在iOS平台上无法长期后台运行。当应用在前台运行时，个推SDK服务可以正常运行，可以实时接受服务端的推送消息；当应用在后台期间，个推服务端会动借助Apple Push Notification Server(APNs)实现消息推送，用户启动应用后，个推SDK服务可以重新接受在应用停止期间服务端推送的离线消息。第三方应用开发者需要特别关注这个处理逻辑。'
-          },
-          {
-            path: '/1/2/3/4/5',
-            title: 'iOS平台',
-            content: '受iOS系统限制，个推SDK服务在iOS平台上无法长期后台运行。当应用在前台运行时，个推SDK服务可以正常运行，可以实时接受服务端的推送消息；当应用在后台期间，个推服务端会动借助Apple Push Notification Server(APNs)实现消息推送，用户启动应用后，个推SDK服务可以重新接受在应用停止期间服务端推送的离线消息。第三方应用开发者需要特别关注这个处理逻辑。'
-          }
-        ]
-      })
-    }, 2000)
-  } else {
-    listDeal(req, res)
-  }
+  listDeal(req, res)
 })
 
 // GET /note/notesUpdateList

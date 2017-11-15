@@ -15,7 +15,10 @@ const userSchema = new mongoose.Schema({
   password: String,
   email: String,
   createTime: Date,
-  secretKey: String
+  secretKey: String,
+  verifyCode: String,
+  hasVerified: Boolean,
+  freezen: Boolean
 })
 // 创建note schema
 const notesSchema = new mongoose.Schema({
