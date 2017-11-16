@@ -4,6 +4,7 @@ import * as notebooksTypes from '../types/notebooksTypes'
 import accountService from '@/services/accountService'
 import router from '@/routes/'
 import md5 from 'crypto-js/md5'
+import Vue from 'vue'
 
 // initial state
 const state = {
@@ -14,13 +15,6 @@ const state = {
 const getters = {
   accountInfo: state => state.accountInfo,
   showAccountSetting: state => state.showAccountSetting
-}
-
-const Notification = function(type, content) {
-  this.dispatch('newNotification', {
-    type,
-    content
-  })
 }
 
 const dealData = function(formData) {
@@ -36,13 +30,13 @@ const actions = {
     accountService
     .login(dealData(formData))
     .then((data) => {
-      Notification.call(this, 'success', 'Welcome!')
+      Vue.prototype.$Message.success('Welcome!')
       this.dispatch(noteTypes.GET_NOTE_LIST)
       this.dispatch(notebooksTypes.GET_NOTEBOOKS_LIST)
       commit(types.CHANGE_ACCOUNT_INFO, { data })
       router.push('/notebooks')
     }, (err) => {
-      Notification.call(this, 'error', err.errorMsg)
+      Vue.prototype.$Message.error(err.errorMsg)
       commit(types.CHANGE_ACCOUNT_INFO, { data: {} })
     })
   },
@@ -52,13 +46,13 @@ const actions = {
     accountService
     .signUp(dealData(formData))
     .then((data) => {
-      Notification.call(this, 'success', 'Welcome!')
+      Vue.prototype.$Message.success('Welcome!')
       this.dispatch(noteTypes.GET_NOTE_LIST)
       this.dispatch(notebooksTypes.GET_NOTEBOOKS_LIST)
       commit(types.CHANGE_ACCOUNT_INFO, { data })
       router.push('/notebooks')
     }, (err) => {
-      Notification.call(this, 'error', err.errorMsg)
+      Vue.prototype.$Message.err(err.errorMsg)
       commit(types.CHANGE_ACCOUNT_INFO, { data: {} })
     })
   },
