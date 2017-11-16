@@ -8,6 +8,9 @@ import App from '@/components/App'
 import store from './store'
 import Popup from 'vue-simple-popup'
 import Confirm from '@/components/Confirm/'
+import Message from 'vue-simple-notification'
+
+Vue.prototype.$Message = Message
 
 new Vue({
   el: '#app',

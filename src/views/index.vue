@@ -1,7 +1,6 @@
 <template>
   <div>
     <req-loading></req-loading>
-    <notification></notification>
     <navbar></navbar>
 
     <div class="main-content">
@@ -21,7 +20,6 @@ import Breadcrumb from '@/components/Breadcrumb'
 import * as notebooksTypes from '@/store/types/notebooksTypes'
 import * as noteTypes from '@/store/types/noteTypes'
 import ReqLoading from '@/components/ReqLoading/'
-import Notification from '@/components/Notification/'
 
 export default {
   // 路由会自动将该组件挂载到 #app 上
@@ -31,8 +29,7 @@ export default {
     Navbar,
     Sidebar,
     Breadcrumb,
-    ReqLoading,
-    Notification
+    ReqLoading
   },
 
   // 注意：顶级变量必须设置默认值方能引入 observer

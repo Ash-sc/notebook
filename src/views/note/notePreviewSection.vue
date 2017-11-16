@@ -59,16 +59,10 @@ export default {
     addNewNote: function() {
       const notebookId = this.$route.params.notebookId.replace(/^all$/, '')
       if (!this.notebooksList.length) {
-        this.$store.dispatch('newNotification', {
-          type: 'error',
-          content: 'Sorry, please create a notebook first.'
-        })
+        this.$Message.error('Sorry, please create a notebook first.')
         return
       } else if (notebookId && !find(this.notebooksList, { id: notebookId })) {
-        this.$store.dispatch('newNotification', {
-          type: 'error',
-          content: 'Error notebookId.'
-        })
+        this.$Message.error('Error notebookId.')
         return
       }
       const noteInfo = {
@@ -82,7 +76,7 @@ export default {
     noteListFilter: function() {
       const notebookId = this.$route.params.notebookId
       const currentNoteBookId = notebookId === 'all' ? '' : notebookId
-      
+
       const arr = currentNoteBookId
         ? this.notesList.filter((item) => {
           return item.notebookId === currentNoteBookId

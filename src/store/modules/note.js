@@ -3,6 +3,7 @@ import noteService from '@/services/noteService'
 import moment from 'moment'
 import find from 'lodash/find'
 import findIndex from 'lodash/findIndex'
+import Vue from 'vue'
 
 // initial state
 // shape: [{ id, quantity }]
@@ -50,16 +51,10 @@ const actions = {
         }
       }
       Promise.all(needFresh).then(results => {
-        this.dispatch('newNotification', {
-          type: 'success',
-          content: 'Sync Note success'
-        })
+        Vue.prototype.$Message.success('Sync Note success')
         this.dispatch(types.GET_NOTE_LIST)
       }, () => {
-        this.dispatch('newNotification', {
-          type: 'error',
-          content: 'Sync Note fail, please do it later'
-        })
+        Vue.prototype.$Message.error('Sync Note fail, please do it later')
       })
     })
   },
@@ -69,10 +64,7 @@ const actions = {
     noteService
     .saveNote(noteInfo)
     .then((data) => {
-      this.dispatch('newNotification', {
-        type: 'success',
-        content: 'Note saved successfully.'
-      })
+      Vue.prototype.$Message.success('Note saved success')
       this.dispatch(types.GET_NOTE_LIST)
     }, () => {
       console.error('save note error!')
