@@ -23,8 +23,8 @@ config.plugins.push(
   }),
   new ExtractTextPlugin('css/[name].[contenthash:6].css', {
     allChunks : true // 若要按需加载 CSS 则请注释掉该行
-  }),
-  new OptimizeCssAssetsPlugin() // 优化 CSS（去重/压缩）
+  })
+  // new OptimizeCssAssetsPlugin() // 优化 CSS（去重/压缩）
 );
 
 module.exports = config;
