@@ -9,6 +9,7 @@ import store from './store'
 import Popup from 'vue-simple-popup'
 import Confirm from '@/components/Confirm/'
 import Message from 'vue-simple-notification'
+import 'vue-simple-notification/dist/style.css'
 
 Vue.prototype.$Message = Message
 
