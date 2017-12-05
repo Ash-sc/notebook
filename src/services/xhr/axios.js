@@ -1,5 +1,6 @@
 import axios from 'axios'
 import store from '@/store'
+import route from '@/routes/index.js'
 import * as loadingType from '@/store/types/loadingTypes'
 
 const rootPath = '/api' // 后端 API 根路径
@@ -26,13 +27,16 @@ const xhr = ({ method = 'get', url, body = null }) => {
       const { data } = res
       store.commit(loadingType.LOADING_CHANGE, { path: rootPath, loading: false })
       if (!data.success) {
+        if (data.errorMsg === 'not login!') {
+          localStorage.clear()
+          route.push({ path: '/login' })
+        }
         return reject(data)
       }
       resolve(data.data)
     }).catch(err => {
       store.commit(loadingType.LOADING_CHANGE, { path: rootPath, loading: false })
       console.log('request error: %s', err)
-      console.log(err)
     })
   })
 

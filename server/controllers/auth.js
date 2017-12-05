@@ -106,13 +106,22 @@ router.post('/login', (req, res) => {
     freezen: false
   })
   .then(result => {
+    let sessionInfo = {
+      username: req.body.userName
+    }
+    req.session.sessionInfo = sessionInfo
     if (!result.length) {
+      req.session.sessionInfo = null
+      req.session.save()
       return res.status(200).json({
         success: false,
         errorMsg: 'Error username or password.'
       })
     }
     const data = result[0]._doc
+
+    req.session.save()
+
     return res
     .status(200)
     .cookie('userId', data.id, { httpOnly: true })
@@ -136,6 +145,7 @@ router.post('/login', (req, res) => {
 
 // POST /auth/logout
 router.post('/logout', (req, res) => {
+  req.session.destroy()
   res
   .status(200)
   .cookie('userId', '', { httpOnly: true })

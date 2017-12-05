@@ -4,19 +4,28 @@ const cookieParser = require('cookie-parser')
 const notFound = require('./middlewares/notFound')
 const authCheck = require('./middlewares/authCheck')
 const simpleLogger = require('./middlewares/simpleLogger')
-const resAjaxReturn = require('./middlewares/res.ajaxReturn')
 
 const authRouter = require('./controllers/auth')
 const noteRouter = require('./controllers/note')
 const notebookRouter = require('./controllers/notebook')
+const session = require('express-session')
+const MongoStore = require('connect-mongo')(session)
 
 var app = express()
 app.use(bodyParser.json())
 app.use(cookieParser())
 app.use(bodyParser.urlencoded({ extended: false }))
-
 app.use(simpleLogger)
-app.use(resAjaxReturn)
+
+app.use(session({
+  secret: 'sesstion-secret',
+  resave: true,
+  saveUninitialized: true,
+  store: new MongoStore({url: 'mongodb://localhost:27017/session_storage'}),
+  cookie: {
+		maxAge: 30 * 24 * 3600 * 1000
+	}
+}))
 
 app.use('/auth/', authRouter)
 app.use(authCheck)
