@@ -74,7 +74,15 @@ router.post('/signUp', (req, res) => {
   .then(result => {
     if (!result.success) return
     const data = result._doc
+
     // sendMail(userName)
+
+    let sessionInfo = {
+      username: req.body.userName
+    }
+    req.session.sessionInfo = sessionInfo
+    req.session.save()
+
     return res
     .status(200)
     .cookie('userId', data.id, { httpOnly: true })
