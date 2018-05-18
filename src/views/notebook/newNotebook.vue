@@ -7,6 +7,7 @@
       v-model="notebookName"
       placeholder="Notebook name"
       maxlength="30"
+      @keyup.enter="newNotebook"
       id="notebook-name"
     /><!--笔记本名称-->
     <label for="notebook-name" class="fa fa-book"></label>
