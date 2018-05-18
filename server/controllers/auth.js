@@ -62,6 +62,7 @@ router.post('/signUp', (req, res) => {
     return usersModel.newUser({
       id: uuidv1(),
       userName,
+      nickName: userName,
       password,
       email,
       createTime: moment().format('x'),
@@ -149,6 +150,53 @@ router.post('/login', (req, res) => {
       errorMsg: err
     })
   })
+})
+
+// POST /auth/changeImage
+router.post('/changeImage', (req, res) => {
+  const userName = (req.body.userName || '').trim()
+  const password = (req.body.password || '').trim()
+  usersModel.findUser({
+    userName,
+    password,
+    freezen: false
+  })
+    .then(result => {
+      let sessionInfo = {
+        username: req.body.userName
+      }
+      req.session.sessionInfo = sessionInfo
+      if (!result.length) {
+        req.session.sessionInfo = null
+        req.session.save()
+        return res.status(200).json({
+          success: false,
+          errorMsg: 'Error username or password.'
+        })
+      }
+      const data = result[0]._doc
+
+      req.session.save()
+
+      return res
+        .status(200)
+        .cookie('userId', data.id, { httpOnly: true })
+        .json({
+          success: true,
+          data: {
+            userName: data.userName,
+            email: data.email,
+            id: data.id
+          },
+          errorMsg: ''
+        })
+    })
+    .catch(err => {
+      return res.status(200).json({
+        success: false,
+        errorMsg: err
+      })
+    })
 })
 
 // POST /auth/logout

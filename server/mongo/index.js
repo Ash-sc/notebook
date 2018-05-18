@@ -12,11 +12,13 @@ db.once('open', (callback) => {
 const userSchema = new mongoose.Schema({
   id: String,
   userName: String,
+  nickName: String,
   password: String,
   email: String,
   createTime: Date,
   secretKey: String,
   verifyCode: String,
+  userImage: { type: String, default: 'http://oxjejkjw8.bkt.clouddn.com/image/dog.jpg' },
   hasVerified: Boolean,
   freezen: Boolean
 })

@@ -20,7 +20,7 @@ exports.newUser = function(data = {}) {
       if (err) {
         reject('Server error, please do it later.')
       } else {
-        return resolve(result)
+        return resolve({ ...result, success: true })
       }
     })
   })
