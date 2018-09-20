@@ -20,7 +20,19 @@ exports.newUser = function(data = {}) {
       if (err) {
         reject('Server error, please do it later.')
       } else {
-        return resolve(result)
+        return resolve(Object.assign({}, result, { success: true }))
+      }
+    })
+  })
+}
+
+exports.updateUser = function(query = {}, data = {}) {
+  return new Promise((resolve, reject) => {
+    userModel.update(query, data, (err) => {
+      if (err) {
+        reject('Server error, please do it later.')
+      } else {
+        return resolve({ success: true })
       }
     })
   })

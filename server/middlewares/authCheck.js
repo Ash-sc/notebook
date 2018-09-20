@@ -1,5 +1,6 @@
 module.exports = function (req, res, next) {
-  if (!req.session.sessionInfo) {
+  const { sessionInfo } = req.session
+  if (!sessionInfo || !sessionInfo.username) {
     res.status(200).json({
       success: false,
       errorMsg: 'not login!'

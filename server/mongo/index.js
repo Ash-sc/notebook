@@ -12,11 +12,13 @@ db.once('open', (callback) => {
 const userSchema = new mongoose.Schema({
   id: String,
   userName: String,
+  nickName: String,
   password: String,
   email: String,
-  createTime: Date,
+  createTime: { type: Date, default: Date.now },
   secretKey: String,
   verifyCode: String,
+  userImage: { type: String, default: 'http://oxjejkjw8.bkt.clouddn.com/image/dog.jpg' },
   hasVerified: Boolean,
   freezen: Boolean
 })
@@ -27,7 +29,8 @@ const notesSchema = new mongoose.Schema({
   userId: String,
   title: String,
   content: String,
-  updateTime: Date
+  updateTime: Date,
+  createTime: { type: Date, default: Date.now }
 })
 // 创建notebook schema
 const notebooksSchema = new mongoose.Schema({
@@ -35,7 +38,8 @@ const notebooksSchema = new mongoose.Schema({
   userId: String,
   name: String,
   type: String,
-  updateTime: Date
+  updateTime: Date,
+  createTime: { type: Date, default: Date.now }
 })
 // 创建model
 const userModel = mongoose.model('users', userSchema)
